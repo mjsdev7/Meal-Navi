@@ -6,6 +6,12 @@ const port = 3000;
 
 connectDB();
 
+app.use(express.json());
+
+const mealRoutes = require('./routes/mealRoutes');
+
+app.use('/api/meals', mealRoutes);
+
 app.get('/', (req, res) => {
   res.send('Meal Navi API is running!');
 });
