@@ -1,13 +1,10 @@
 const express = require('express');
-const app = express();
+const connectDB = require('./config/db');
 
+const app = express();
 const port = 3000;
 
-const mealRoutes = require('./routes/mealRoutes');
-
-app.use(express.json());
-
-app.use('/api/meals', mealRoutes);
+connectDB();
 
 app.get('/', (req, res) => {
   res.send('Meal Navi API is running!');
