@@ -20,7 +20,24 @@ const createMeal = async (req, res) => {
   }
 };
 
+const updateMeal = async (req, res) => {
+  try {
+    const updatedMeal = await Meal.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
+    res.json(updatedMeal);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getMeals, 
-  createMeal
+  createMeal,
+  updateMeal
 };
