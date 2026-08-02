@@ -11,6 +11,7 @@ This project is being developed to simplify meal planning while demonstrating mo
 ## Features
 
 ### Current
+
 - User authentication (Register, Login, Logout)
 - User profiles
 - Recipe search
@@ -20,6 +21,7 @@ This project is being developed to simplify meal planning while demonstrating mo
 - Responsive design
 
 ### Planned
+
 - Nutrition information
 - High-protein recipe recommendations
 - Pantry tracker
@@ -31,24 +33,29 @@ This project is being developed to simplify meal planning while demonstrating mo
 ## Tech Stack
 
 ### Frontend
+
 - React
 - HTML
 - CSS
 - JavaScript
 
 ### Backend
+
 - Node.js
 - Express.js
 
 ### Database
+
 - MongoDB
 - Mongoose
 
 ### Authentication
+
 - JWT
 - bcrypt
 
 ### APIs
+
 - Recipe API (TBD)
 
 ---
