@@ -56,8 +56,22 @@ const loginUser = async (req, res) => {
   }
 };
 
+const getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId)
+      .select('-password');
+
+    res.json(user);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 
 module.exports = {
   registerUser,
-  loginUser
+  loginUser,
+  getProfile
 };
