@@ -10,9 +10,11 @@ app.use(express.json());
 
 const mealRoutes = require('./routes/mealRoutes');
 const userRoutes = require('./routes/userRoutes');
+const favouriteRoutes = require('./routes/favouriteRoutes');
 
 app.use('/api/meals', mealRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/favourites', favouriteRoutes);
 
 app.get('/', (req, res) => {
   res.send('Meal Navi API is running!');
