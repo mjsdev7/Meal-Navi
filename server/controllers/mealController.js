@@ -22,11 +22,14 @@ const createMeal = async (req, res) => {
 
 const updateMeal = async (req, res) => {
   try {
-    const updatedMeal = await Meal.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
+   const updatedMeal = await Meal.findByIdAndUpdate(
+  req.params.id,
+  req.body,
+  {
+    new: true,
+    runValidators: true
+  }
+);
 
     res.json(updatedMeal);
 
