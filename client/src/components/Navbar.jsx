@@ -1,4 +1,5 @@
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -26,7 +27,7 @@ function Navbar() {
         </Box>
 
         <Box>
-          <Button color="inherit" href="#features">
+          <Button color="inherit" component={Link} to="/features">
             Features
           </Button>
           <Button color="inherit">How It Works</Button>
