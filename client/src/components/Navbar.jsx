@@ -26,7 +26,9 @@ function Navbar() {
         </Box>
 
         <Box>
-          <Button color="inherit">Features</Button>
+          <Button color="inherit" href="#features">
+            Features
+          </Button>
           <Button color="inherit">How It Works</Button>
           <Button color="inherit">About</Button>
           <Button color="inherit">Log In</Button>
