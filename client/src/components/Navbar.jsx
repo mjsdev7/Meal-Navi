@@ -18,7 +18,17 @@ function Navbar() {
           padding: "20px 60px",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Box
+          component={Link}
+          to="/"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            color: "inherit",
+            textDecoration: "none",
+          }}
+        >
           <Typography fontSize="28px">🍲</Typography>
 
           <Typography fontWeight="bold" fontSize="24px">
@@ -30,10 +40,18 @@ function Navbar() {
           <Button color="inherit" component={Link} to="/features">
             Features
           </Button>
-          <Button color="inherit">How It Works</Button>
-          <Button color="inherit">About</Button>
-          <Button color="inherit">Log In</Button>
-          <Button color="inherit">Sign Up</Button>
+
+          <Button color="inherit" component={Link} to="/how-it-works">
+            How It Works
+          </Button>
+
+          <Button color="inherit" component={Link} to="/login">
+            Log In
+          </Button>
+
+          <Button color="inherit" component={Link} to="/register">
+            Sign Up
+          </Button>
         </Box>
       </Toolbar>
     </AppBar>
