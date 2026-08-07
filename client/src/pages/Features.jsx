@@ -1,14 +1,8 @@
 import "./Features.css";
-import featuresImage from "../assets/hero.jpg";
 
 function Features() {
   return (
-    <section
-      className="features"
-      style={{ backgroundImage: `url(${featuresImage})` }}
-    >
-      <div className="features-overlay"></div>
-
+    <section className="features">
       <div className="features-content">
         <h2>Everything you need to plan better</h2>
 
