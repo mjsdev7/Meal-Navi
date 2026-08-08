@@ -45,6 +45,10 @@ function Navbar() {
             How It Works
           </Button>
 
+          <Button color="inherit" component={Link} to="/planner">
+            Planner
+          </Button>
+
           <Button color="inherit" component={Link} to="/login">
             Log In
           </Button>
