@@ -1,6 +1,12 @@
 import "./Planner.css";
+import { useState } from "react";
+import { Button, Menu, MenuItem } from "@mui/material";
 
 function Planner() {
+  const [meals, setMeals] = useState({});
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedDay, setSelectedDay] = useState(null);
+
   const days = [
     "Monday",
     "Tuesday",
@@ -10,6 +16,16 @@ function Planner() {
     "Saturday",
     "Sunday",
   ];
+
+  const handleMealSelect = (meal) => {
+    setMeals({
+      ...meals,
+      [selectedDay]: meal,
+    });
+
+    setAnchorEl(null);
+    setSelectedDay(null);
+  };
 
   return (
     <section className="planner-page">
@@ -25,23 +41,71 @@ function Planner() {
               <div className="meal-slot">
                 <span>🌅</span>
                 <h3>Breakfast</h3>
-                <p>Choose a meal</p>
+
+                <Button
+                  variant="outlined"
+                  onClick={(event) => {
+                    setAnchorEl(event.currentTarget);
+                    setSelectedDay(`${day}-breakfast`);
+                  }}
+                >
+                  {meals[`${day}-breakfast`] || "Choose a meal"}
+                </Button>
               </div>
 
               <div className="meal-slot">
                 <span>☀️</span>
                 <h3>Lunch</h3>
-                <p>Choose a meal</p>
+
+                <Button
+                  variant="outlined"
+                  onClick={(event) => {
+                    setAnchorEl(event.currentTarget);
+                    setSelectedDay(`${day}-lunch`);
+                  }}
+                >
+                  {meals[`${day}-lunch`] || "Choose a meal"}
+                </Button>
               </div>
 
               <div className="meal-slot">
                 <span>🌙</span>
                 <h3>Dinner</h3>
-                <p>Choose a meal</p>
+
+                <Button
+                  variant="outlined"
+                  onClick={(event) => {
+                    setAnchorEl(event.currentTarget);
+                    setSelectedDay(`${day}-dinner`);
+                  }}
+                >
+                  {meals[`${day}-dinner`] || "Choose a meal"}
+                </Button>
               </div>
             </div>
           ))}
         </div>
+
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={() => {
+            setAnchorEl(null);
+            setSelectedDay(null);
+          }}
+        >
+          <MenuItem onClick={() => handleMealSelect("Pancakes")}>
+            Pancakes
+          </MenuItem>
+
+          <MenuItem onClick={() => handleMealSelect("Eggs on Toast")}>
+            Eggs on Toast
+          </MenuItem>
+
+          <MenuItem onClick={() => handleMealSelect("Yogurt & Berries")}>
+            Yogurt & Berries
+          </MenuItem>
+        </Menu>
       </div>
     </section>
   );

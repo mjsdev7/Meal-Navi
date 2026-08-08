@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Navbar() {
   return (
     <AppBar
-      position="absolute"
+      position="fixed"
       sx={{
         background: "transparent",
         boxShadow: "none",
