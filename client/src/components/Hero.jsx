@@ -1,5 +1,6 @@
 import heroImage from "../assets/hero.jpg";
 import "./Hero.css";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
@@ -21,7 +22,9 @@ function Hero() {
           and never forget your shopping list again.
         </p>
 
-        <button className="hero-btn">Get Started</button>
+        <Link to="/register" className="hero-btn">
+          Get Started
+        </Link>
 
         <div className="hero-features">
           <span>Meal Planning</span>

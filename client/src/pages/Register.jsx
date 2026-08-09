@@ -1,7 +1,13 @@
 import "./Register.css";
 import { TextField, Button } from "@mui/material";
+import { useState } from "react";
 
 function Register() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   return (
     <section className="register-page">
       <div className="register-card">

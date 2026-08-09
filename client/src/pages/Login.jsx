@@ -6,6 +6,7 @@ function Login() {
     <section className="login-page">
       <div className="login-card">
         <h1>Welcome Back</h1>
+
         <p>Log in to continue planning your meals.</p>
 
         <form className="login-form">

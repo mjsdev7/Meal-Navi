@@ -7,6 +7,7 @@
   align-items: center;
   text-align: center;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .login-card {
@@ -16,6 +17,7 @@
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
 }
 
 .login-card h1 {
@@ -25,36 +27,31 @@
   margin-bottom: 10px;
 }
 
-.login-card p {
-  color: #666;
-  margin-bottom: 30px;
-  line-height: 1.6;
+.login-card {
+  background: #FFF8F0;
+  width: 100%;
+  max-width: 420px;
+  padding: 45px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
   text-align: left;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.login-form label {
-  color: #B86B3C;
-  font-weight: 600;
-  margin-bottom: 8px;
+.login-form .MuiFormControl-root {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .login-form input {
-  padding: 14px;
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 1rem;
-  outline: none;
-  background: white;
-}
-
-.login-form input:focus {
-  border-color: #F7B267;
+  box-sizing: border-box;
 }
 
 .login-form button {
@@ -72,4 +69,8 @@
 
 .login-form button:hover {
   background: #E89A5A;
+}
+
+.login-form .MuiOutlinedInput-root {
+  min-height: 56px;
 }
