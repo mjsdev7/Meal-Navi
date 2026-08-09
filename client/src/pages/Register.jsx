@@ -8,22 +8,50 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    console.log(name, email, password);
+  };
+
   return (
     <section className="register-page">
       <div className="register-card">
         <h1>Create Your Account</h1>
+
         <p>Join Meal Navi and start planning your meals.</p>
 
-        <form className="register-form">
-          <TextField label="Name" type="text" fullWidth margin="normal" />
+        <form className="register-form" onSubmit={handleSubmit}>
+          <TextField
+            label="Name"
+            type="text"
+            fullWidth
+            margin="normal"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
 
-          <TextField label="Email" type="email" fullWidth margin="normal" />
+          <TextField
+            label="Email"
+            type="email"
+            fullWidth
+            margin="normal"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
           <TextField
             label="Password"
             type="password"
             fullWidth
             margin="normal"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <TextField
@@ -31,6 +59,8 @@ function Register() {
             type="password"
             fullWidth
             margin="normal"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
 
           <Button
