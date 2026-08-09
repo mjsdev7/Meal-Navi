@@ -1,5 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const cors = require("cors");
 
 const app = express();
 const port = 3000;
@@ -7,6 +8,7 @@ const port = 3000;
 connectDB();
 
 app.use(express.json());
+app.use(cors());
 
 const mealRoutes = require('./routes/mealRoutes');
 const userRoutes = require('./routes/userRoutes');
