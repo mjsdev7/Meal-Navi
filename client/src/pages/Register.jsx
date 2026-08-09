@@ -16,7 +16,28 @@ function Register() {
       return;
     }
 
-    console.log(name, email, password);
+    fetch("http://localhost:3000/api/users/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: name,
+        email: email,
+        password: password,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Registration successful!");
+        } else {
+          alert("Registration failed.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again.");
+      });
   };
 
   return (
