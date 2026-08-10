@@ -1,8 +1,11 @@
 import "./Login.css";
 import { TextField, Button } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,8 +30,8 @@ function Login() {
         throw new Error("Login failed");
       })
       .then((data) => {
-        console.log(data);
-        alert("Login successful!");
+        localStorage.setItem("token", data.token);
+        navigate("/planner");
       })
       .catch((error) => {
         console.error(error);
