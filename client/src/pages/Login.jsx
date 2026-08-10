@@ -1,7 +1,41 @@
 import "./Login.css";
 import { TextField, Button } from "@mui/material";
+import { useState } from "react";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    fetch("http://localhost:3000/api/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+
+        throw new Error("Login failed");
+      })
+      .then((data) => {
+        console.log(data);
+        alert("Login successful!");
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("Invalid email or password.");
+      });
+  };
+
   return (
     <section className="login-page">
       <div className="login-card">
@@ -9,14 +43,23 @@ function Login() {
 
         <p>Log in to continue planning your meals.</p>
 
-        <form className="login-form">
-          <TextField label="Email" type="email" fullWidth margin="normal" />
+        <form className="login-form" onSubmit={handleSubmit}>
+          <TextField
+            label="Email"
+            type="email"
+            fullWidth
+            margin="normal"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
           <TextField
             label="Password"
             type="password"
             fullWidth
             margin="normal"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <Button
