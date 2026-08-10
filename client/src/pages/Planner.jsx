@@ -32,7 +32,7 @@ function Planner() {
   const handleMealSelect = (meal) => {
     setMeals({
       ...meals,
-      [selectedDay]: meal,
+      [selectedDay]: meal.name,
     });
 
     setAnchorEl(null);
@@ -40,8 +40,8 @@ function Planner() {
   };
 
   return (
-    <section className="planner-page">
-      <div className="planner-content">
+    <section className="planner-section">
+      <div className="planner-container">
         <h1>Weekly Meal Planner</h1>
         <p>Plan your meals for the week and stay organised.</p>
 
@@ -107,10 +107,7 @@ function Planner() {
           }}
         >
           {availableMeals.map((meal) => (
-            <MenuItem
-              key={meal._id}
-              onClick={() => handleMealSelect(meal.name)}
-            >
+            <MenuItem key={meal._id} onClick={() => handleMealSelect(meal)}>
               {meal.name}
             </MenuItem>
           ))}
