@@ -1,9 +1,10 @@
 import "./Planner.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
 
 function Planner() {
   const [meals, setMeals] = useState({});
+  const [availableMeals, setAvailableMeals] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
 
@@ -16,6 +17,17 @@ function Planner() {
     "Saturday",
     "Sunday",
   ];
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/meals")
+      .then((response) => response.json())
+      .then((data) => {
+        setAvailableMeals(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching meals:", error);
+      });
+  }, []);
 
   const handleMealSelect = (meal) => {
     setMeals({
@@ -94,17 +106,14 @@ function Planner() {
             setSelectedDay(null);
           }}
         >
-          <MenuItem onClick={() => handleMealSelect("Pancakes")}>
-            Pancakes
-          </MenuItem>
-
-          <MenuItem onClick={() => handleMealSelect("Eggs on Toast")}>
-            Eggs on Toast
-          </MenuItem>
-
-          <MenuItem onClick={() => handleMealSelect("Yogurt & Berries")}>
-            Yogurt & Berries
-          </MenuItem>
+          {availableMeals.map((meal) => (
+            <MenuItem
+              key={meal._id}
+              onClick={() => handleMealSelect(meal.name)}
+            >
+              {meal.name}
+            </MenuItem>
+          ))}
         </Menu>
       </div>
     </section>
