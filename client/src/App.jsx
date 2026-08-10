@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Planner from "./pages/Planner";
 import ShoppingList from "./pages/ShoppingList";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -21,8 +22,24 @@ function App() {
         <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/planner" element={<Planner />} />
-        <Route path="/shopping-list" element={<ShoppingList />} />
+
+        <Route
+          path="/planner"
+          element={
+            <ProtectedRoute>
+              <Planner />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/shopping-list"
+          element={
+            <ProtectedRoute>
+              <ShoppingList />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
