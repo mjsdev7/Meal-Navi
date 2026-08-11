@@ -39,6 +39,16 @@ function Planner() {
     setSelectedDay(null);
   };
 
+  const handleClearMeal = () => {
+    setMeals({
+      ...meals,
+      [selectedDay]: "",
+    });
+
+    setAnchorEl(null);
+    setSelectedDay(null);
+  };
+
   return (
     <section className="planner-section">
       <div className="planner-container">
@@ -106,6 +116,8 @@ function Planner() {
             setSelectedDay(null);
           }}
         >
+          <MenuItem onClick={handleClearMeal}>Clear meal</MenuItem>
+
           {availableMeals.map((meal) => (
             <MenuItem key={meal._id} onClick={() => handleMealSelect(meal)}>
               {meal.name}
