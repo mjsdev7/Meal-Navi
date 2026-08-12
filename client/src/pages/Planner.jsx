@@ -29,14 +29,37 @@ function Planner() {
       });
   }, []);
 
-  const handleMealSelect = (meal) => {
-    setMeals({
-      ...meals,
-      [selectedDay]: meal.name,
-    });
+  const handleMealSelect = async (meal) => {
+    const [day, mealType] = selectedDay.split("-");
 
-    setAnchorEl(null);
-    setSelectedDay(null);
+    try {
+      const response = await fetch("http://localhost:3000/api/mealplans", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          meal: meal._id,
+          day,
+          mealType,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save meal plan");
+      }
+
+      setMeals({
+        ...meals,
+        [selectedDay]: meal.name,
+      });
+
+      setAnchorEl(null);
+      setSelectedDay(null);
+    } catch (error) {
+      console.error("Error saving meal plan:", error);
+    }
   };
 
   const handleClearMeal = () => {
