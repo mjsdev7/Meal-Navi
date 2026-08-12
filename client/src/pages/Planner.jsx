@@ -19,6 +19,8 @@ function Planner() {
   ];
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
     fetch("http://localhost:3000/api/meals")
       .then((response) => response.json())
       .then((data) => {
@@ -26,6 +28,26 @@ function Planner() {
       })
       .catch((error) => {
         console.error("Error fetching meals:", error);
+      });
+
+    fetch("http://localhost:3000/api/mealplans", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const savedMeals = {};
+
+        data.forEach((mealPlan) => {
+          savedMeals[`${mealPlan.day}-${mealPlan.mealType}`] =
+            mealPlan.meal.name;
+        });
+
+        setMeals(savedMeals);
+      })
+      .catch((error) => {
+        console.error("Error fetching meal plans:", error);
       });
   }, []);
 
