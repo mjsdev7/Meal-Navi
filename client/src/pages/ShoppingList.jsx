@@ -84,6 +84,31 @@ function ShoppingList() {
     }
   };
 
+  const deleteItem = async (index) => {
+    const updatedItems = items.filter((_, itemIndex) => itemIndex !== index);
+
+    try {
+      const response = await fetch("http://localhost:3000/api/shoppinglist", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          items: updatedItems,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete item");
+      }
+
+      setItems(updatedItems);
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
+  };
+
   return (
     <section>
       <h1>Shopping List</h1>
@@ -109,6 +134,8 @@ function ShoppingList() {
             />
 
             {item.name}
+
+            <button onClick={() => deleteItem(index)}>Delete</button>
           </li>
         ))}
       </ul>
