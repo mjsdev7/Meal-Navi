@@ -57,6 +57,33 @@ function ShoppingList() {
     }
   };
 
+  const toggleItem = async (index) => {
+    const updatedItems = items.map((item, itemIndex) =>
+      itemIndex === index ? { ...item, checked: !item.checked } : item,
+    );
+
+    try {
+      const response = await fetch("http://localhost:3000/api/shoppinglist", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          items: updatedItems,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update shopping list");
+      }
+
+      setItems(updatedItems);
+    } catch (error) {
+      console.error("Error updating shopping list:", error);
+    }
+  };
+
   return (
     <section>
       <h1>Shopping List</h1>
@@ -74,7 +101,15 @@ function ShoppingList() {
 
       <ul>
         {items.map((item, index) => (
-          <li key={index}>{item.name}</li>
+          <li key={index}>
+            <input
+              type="checkbox"
+              checked={item.checked}
+              onChange={() => toggleItem(index)}
+            />
+
+            {item.name}
+          </li>
         ))}
       </ul>
     </section>
