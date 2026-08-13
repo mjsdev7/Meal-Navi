@@ -2,6 +2,13 @@ import "./Planner.css";
 import { useState, useEffect } from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
 
+import {
+  getMeals,
+  getMealPlans,
+  createMealPlan,
+  deleteMealPlan,
+} from "../services/api";
+
 function Planner() {
   const [meals, setMeals] = useState({});
   const [availableMeals, setAvailableMeals] = useState([]);
@@ -20,64 +27,40 @@ function Planner() {
   ];
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const loadPlanner = async () => {
+      try {
+        const [mealsData, plansData] = await Promise.all([
+          getMeals(),
+          getMealPlans(),
+        ]);
 
-    fetch("http://localhost:3000/api/meals")
-      .then((response) => response.json())
-      .then((data) => {
-        setAvailableMeals(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching meals:", error);
-      });
+        setAvailableMeals(mealsData);
 
-    fetch("http://localhost:3000/api/mealplans", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
         const savedMeals = {};
-        const savedMealPlanIds = {};
+        const savedIds = {};
 
-        data.forEach((mealPlan) => {
-          const slot = `${mealPlan.day}-${mealPlan.mealType}`;
+        plansData.forEach((mealPlan) => {
+          const key = `${mealPlan.day}-${mealPlan.mealType}`;
 
-          savedMeals[slot] = mealPlan.meal.name;
-          savedMealPlanIds[slot] = mealPlan._id;
+          savedMeals[key] = mealPlan.meal.name;
+          savedIds[key] = mealPlan._id;
         });
 
         setMeals(savedMeals);
-        setMealPlanIds(savedMealPlanIds);
-      })
-      .catch((error) => {
-        console.error("Error fetching meal plans:", error);
-      });
+        setMealPlanIds(savedIds);
+      } catch (error) {
+        console.error("Error loading planner:", error);
+      }
+    };
+
+    loadPlanner();
   }, []);
 
   const handleMealSelect = async (meal) => {
     const [day, mealType] = selectedDay.split("-");
 
     try {
-      const response = await fetch("http://localhost:3000/api/mealplans", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
-          meal: meal._id,
-          day,
-          mealType,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to save meal plan");
-      }
-
-      const savedMealPlan = await response.json();
+      const savedPlan = await createMealPlan(meal._id, day, mealType);
 
       setMeals({
         ...meals,
@@ -86,7 +69,7 @@ function Planner() {
 
       setMealPlanIds({
         ...mealPlanIds,
-        [selectedDay]: savedMealPlan._id,
+        [selectedDay]: savedPlan._id,
       });
 
       setAnchorEl(null);
@@ -99,40 +82,19 @@ function Planner() {
   const handleClearMeal = async () => {
     const mealPlanId = mealPlanIds[selectedDay];
 
-    if (!mealPlanId) {
-      setMeals({
-        ...meals,
-        [selectedDay]: "",
-      });
-
-      setAnchorEl(null);
-      setSelectedDay(null);
-      return;
-    }
-
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/mealplans/${mealPlanId}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to delete meal plan");
+      if (mealPlanId) {
+        await deleteMealPlan(mealPlanId);
       }
 
       const updatedMeals = { ...meals };
-      const updatedMealPlanIds = { ...mealPlanIds };
+      const updatedIds = { ...mealPlanIds };
 
       delete updatedMeals[selectedDay];
-      delete updatedMealPlanIds[selectedDay];
+      delete updatedIds[selectedDay];
 
       setMeals(updatedMeals);
-      setMealPlanIds(updatedMealPlanIds);
+      setMealPlanIds(updatedIds);
 
       setAnchorEl(null);
       setSelectedDay(null);
@@ -145,6 +107,7 @@ function Planner() {
     <section className="planner-section">
       <div className="planner-container">
         <h1>Weekly Meal Planner</h1>
+
         <p>Plan your meals for the week and stay organised.</p>
 
         <div className="planner-grid">
