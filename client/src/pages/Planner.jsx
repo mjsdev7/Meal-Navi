@@ -5,6 +5,7 @@ import { Button, Menu, MenuItem } from "@mui/material";
 function Planner() {
   const [meals, setMeals] = useState({});
   const [availableMeals, setAvailableMeals] = useState([]);
+  const [mealPlanIds, setMealPlanIds] = useState({});
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
 
@@ -38,13 +39,17 @@ function Planner() {
       .then((response) => response.json())
       .then((data) => {
         const savedMeals = {};
+        const savedMealPlanIds = {};
 
         data.forEach((mealPlan) => {
-          savedMeals[`${mealPlan.day}-${mealPlan.mealType}`] =
-            mealPlan.meal.name;
+          const slot = `${mealPlan.day}-${mealPlan.mealType}`;
+
+          savedMeals[slot] = mealPlan.meal.name;
+          savedMealPlanIds[slot] = mealPlan._id;
         });
 
         setMeals(savedMeals);
+        setMealPlanIds(savedMealPlanIds);
       })
       .catch((error) => {
         console.error("Error fetching meal plans:", error);
@@ -72,9 +77,16 @@ function Planner() {
         throw new Error("Failed to save meal plan");
       }
 
+      const savedMealPlan = await response.json();
+
       setMeals({
         ...meals,
         [selectedDay]: meal.name,
+      });
+
+      setMealPlanIds({
+        ...mealPlanIds,
+        [selectedDay]: savedMealPlan._id,
       });
 
       setAnchorEl(null);
@@ -84,14 +96,49 @@ function Planner() {
     }
   };
 
-  const handleClearMeal = () => {
-    setMeals({
-      ...meals,
-      [selectedDay]: "",
-    });
+  const handleClearMeal = async () => {
+    const mealPlanId = mealPlanIds[selectedDay];
 
-    setAnchorEl(null);
-    setSelectedDay(null);
+    if (!mealPlanId) {
+      setMeals({
+        ...meals,
+        [selectedDay]: "",
+      });
+
+      setAnchorEl(null);
+      setSelectedDay(null);
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/mealplans/${mealPlanId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete meal plan");
+      }
+
+      const updatedMeals = { ...meals };
+      const updatedMealPlanIds = { ...mealPlanIds };
+
+      delete updatedMeals[selectedDay];
+      delete updatedMealPlanIds[selectedDay];
+
+      setMeals(updatedMeals);
+      setMealPlanIds(updatedMealPlanIds);
+
+      setAnchorEl(null);
+      setSelectedDay(null);
+    } catch (error) {
+      console.error("Error deleting meal plan:", error);
+    }
   };
 
   return (
