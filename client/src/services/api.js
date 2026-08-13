@@ -60,16 +60,12 @@ export const deleteMealPlan = async (mealPlanId) => {
   return response.json();
 };
 
-export const generateShoppingList = async (items) => {
-  const response = await fetch(`${API_URL}/shoppinglist`, {
+export const generateShoppingList = async () => {
+  const response = await fetch(`${API_URL}/shoppinglist/generate`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
-    body: JSON.stringify({
-      items,
-    }),
   });
 
   if (!response.ok) {
