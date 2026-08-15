@@ -73,18 +73,25 @@ const generateShoppingList = async (req, res) => {
       user: req.user.userId,
     }).populate("meal");
 
-    const ingredients = [];
+    const ingredientMap = new Map();
 
     mealPlans.forEach((mealPlan) => {
       if (mealPlan.meal && mealPlan.meal.ingredients) {
         mealPlan.meal.ingredients.forEach((ingredient) => {
-          ingredients.push({
-            name: ingredient,
-            checked: false,
-          });
+          const name = ingredient.trim();
+          const key = name.toLowerCase();
+
+          if (!ingredientMap.has(key)) {
+            ingredientMap.set(key, {
+              name,
+              checked: false,
+            });
+          }
         });
       }
     });
+
+    const ingredients = Array.from(ingredientMap.values());
 
     const shoppingList = await ShoppingList.findOneAndUpdate(
       {
@@ -103,6 +110,7 @@ const generateShoppingList = async (req, res) => {
     res.json(shoppingList);
   } catch (error) {
     console.log(error);
+
     res.status(500).json({
       message: error.message,
     });
