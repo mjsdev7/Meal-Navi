@@ -109,6 +109,31 @@ function ShoppingList() {
     }
   };
 
+  const clearCompleted = async () => {
+    const updatedItems = items.filter((item) => !item.checked);
+
+    try {
+      const response = await fetch("http://localhost:3000/api/shoppinglist", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          items: updatedItems,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to clear completed items");
+      }
+
+      setItems(updatedItems);
+    } catch (error) {
+      console.error("Error clearing completed items:", error);
+    }
+  };
+
   return (
     <section>
       <h1>Shopping List</h1>
@@ -122,6 +147,8 @@ function ShoppingList() {
         />
 
         <button onClick={addItem}>Add</button>
+
+        <button onClick={clearCompleted}>Clear completed</button>
       </div>
 
       <ul>
