@@ -10,6 +10,16 @@ export const getMeals = async () => {
   return response.json();
 };
 
+export const getRecipes = async () => {
+  const response = await fetch(`${API_URL}/recipes`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch recipes");
+  }
+
+  return response.json();
+};
+
 export const getMealPlans = async () => {
   const response = await fetch(`${API_URL}/mealplans`, {
     headers: {
@@ -70,16 +80,6 @@ export const generateShoppingList = async () => {
 
   if (!response.ok) {
     throw new Error("Failed to generate shopping list");
-  }
-
-  return response.json();
-};
-
-export const getRecipes = async () => {
-  const response = await fetch(`${API_URL}/recipes`);
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch recipes");
   }
 
   return response.json();
