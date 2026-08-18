@@ -15,12 +15,14 @@ const userRoutes = require('./routes/userRoutes');
 const favouriteRoutes = require('./routes/favouriteRoutes');
 const mealPlanRoutes = require('./routes/mealPlanRoutes');
 const shoppingListRoutes = require('./routes/shoppingListRoutes');
+const recipeRoutes = require('./routes/recipeRoutes');
 
 app.use('/api/users', userRoutes);
 app.use('/api/meals', mealRoutes);
 app.use('/api/favourites', favouriteRoutes);
 app.use('/api/mealplans', mealPlanRoutes);
 app.use('/api/shoppinglist', shoppingListRoutes);
+app.use('/api/recipes', recipeRoutes);
 
 app.get('/', (req, res) => {
   res.send('Meal Navi API is running!');
