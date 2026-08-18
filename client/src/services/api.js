@@ -74,3 +74,13 @@ export const generateShoppingList = async () => {
 
   return response.json();
 };
+
+export const getRecipes = async () => {
+  const response = await fetch(`${API_URL}/recipes`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch recipes");
+  }
+
+  return response.json();
+};
