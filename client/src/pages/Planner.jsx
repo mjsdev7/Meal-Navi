@@ -4,7 +4,9 @@ import { Button, Menu, MenuItem } from "@mui/material";
 
 import {
   getMeals,
+  getRecipes,
   getMealPlans,
+  createMeal,
   createMealPlan,
   deleteMealPlan,
   generateShoppingList,
@@ -30,12 +32,19 @@ function Planner() {
   useEffect(() => {
     const loadPlanner = async () => {
       try {
-        const [mealsData, plansData] = await Promise.all([
+        const [mealsData, recipesData, plansData] = await Promise.all([
           getMeals(),
+          getRecipes(),
           getMealPlans(),
         ]);
 
-        setAvailableMeals(mealsData);
+        const apiRecipes = recipesData.map((recipe) => ({
+          ...recipe,
+          cookingTime: 30,
+          servings: 4,
+        }));
+
+        setAvailableMeals([...mealsData, ...apiRecipes]);
 
         const savedMeals = {};
         const savedIds = {};
@@ -61,7 +70,16 @@ function Planner() {
     const [day, mealType] = selectedDay.split("-");
 
     try {
-      const savedPlan = await createMealPlan(meal._id, day, mealType);
+      let mealId = meal._id;
+
+      // API recipes don't have a MongoDB ID yet.
+      // Save them to our database first.
+      if (!mealId) {
+        const savedMeal = await createMeal(meal);
+        mealId = savedMeal._id;
+      }
+
+      const savedPlan = await createMealPlan(mealId, day, mealType);
 
       setMeals({
         ...meals,
@@ -201,8 +219,11 @@ function Planner() {
         >
           <MenuItem onClick={handleClearMeal}>Clear meal</MenuItem>
 
-          {availableMeals.map((meal) => (
-            <MenuItem key={meal._id} onClick={() => handleMealSelect(meal)}>
+          {availableMeals.map((meal, index) => (
+            <MenuItem
+              key={meal._id || `${meal.name}-${index}`}
+              onClick={() => handleMealSelect(meal)}
+            >
               {meal.name}
             </MenuItem>
           ))}
