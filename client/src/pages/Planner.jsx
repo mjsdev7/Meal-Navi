@@ -72,8 +72,6 @@ function Planner() {
     try {
       let mealId = meal._id;
 
-      // API recipes don't have a MongoDB ID yet.
-      // Save them to our database first.
       if (!mealId) {
         const savedMeal = await createMeal(meal);
         mealId = savedMeal._id;

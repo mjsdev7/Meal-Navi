@@ -10,6 +10,22 @@ export const getMeals = async () => {
   return response.json();
 };
 
+export const createMeal = async (meal) => {
+  const response = await fetch(`${API_URL}/meals`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(meal),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to create meal");
+  }
+
+  return response.json();
+};
+
 export const getRecipes = async () => {
   const response = await fetch(`${API_URL}/recipes`);
 
