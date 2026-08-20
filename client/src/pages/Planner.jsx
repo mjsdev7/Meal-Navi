@@ -19,6 +19,7 @@ function Planner() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   const days = [
     "Monday",
@@ -93,6 +94,7 @@ function Planner() {
       setAnchorEl(null);
       setSelectedDay(null);
       setSearchTerm("");
+      setSelectedRecipe(null);
     } catch (error) {
       console.error("Error saving meal plan:", error);
     }
@@ -118,6 +120,7 @@ function Planner() {
       setAnchorEl(null);
       setSelectedDay(null);
       setSearchTerm("");
+      setSelectedRecipe(null);
     } catch (error) {
       console.error("Error deleting meal plan:", error);
     }
@@ -126,11 +129,9 @@ function Planner() {
   const handleGenerateShoppingList = async () => {
     try {
       await generateShoppingList();
-
       alert("Shopping list generated!");
     } catch (error) {
       console.error("Error generating shopping list:", error);
-
       alert("Could not generate shopping list.");
     }
   };
@@ -156,6 +157,43 @@ function Planner() {
         >
           Generate Shopping List
         </Button>
+
+        {selectedRecipe && (
+          <div className="recipe-details">
+            {selectedRecipe.image && (
+              <img
+                src={selectedRecipe.image}
+                alt={selectedRecipe.name}
+                width="300"
+              />
+            )}
+
+            <h2>{selectedRecipe.name}</h2>
+
+            <p>
+              <strong>Category:</strong> {selectedRecipe.category}
+            </p>
+
+            <h3>Ingredients</h3>
+
+            <ul>
+              {selectedRecipe.ingredients?.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))}
+            </ul>
+
+            <h3>Instructions</h3>
+
+            <p>{selectedRecipe.instructions}</p>
+
+            <Button
+              variant="contained"
+              onClick={() => handleMealSelect(selectedRecipe)}
+            >
+              Add to Planner
+            </Button>
+          </div>
+        )}
 
         <div className="planner-grid">
           {days.map((day) => (
@@ -236,7 +274,7 @@ function Planner() {
             .map((meal, index) => (
               <MenuItem
                 key={meal._id || `${meal.name}-${index}`}
-                onClick={() => handleMealSelect(meal)}
+                onClick={() => setSelectedRecipe(meal)}
               >
                 {meal.name}
               </MenuItem>
