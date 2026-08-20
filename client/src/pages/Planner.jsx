@@ -1,6 +1,6 @@
 import "./Planner.css";
 import { useState, useEffect } from "react";
-import { Button, Menu, MenuItem } from "@mui/material";
+import { Button, Menu, MenuItem, TextField } from "@mui/material";
 
 import {
   getMeals,
@@ -18,6 +18,7 @@ function Planner() {
   const [mealPlanIds, setMealPlanIds] = useState({});
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const days = [
     "Monday",
@@ -91,6 +92,7 @@ function Planner() {
 
       setAnchorEl(null);
       setSelectedDay(null);
+      setSearchTerm("");
     } catch (error) {
       console.error("Error saving meal plan:", error);
     }
@@ -115,6 +117,7 @@ function Planner() {
 
       setAnchorEl(null);
       setSelectedDay(null);
+      setSearchTerm("");
     } catch (error) {
       console.error("Error deleting meal plan:", error);
     }
@@ -213,18 +216,31 @@ function Planner() {
           onClose={() => {
             setAnchorEl(null);
             setSelectedDay(null);
+            setSearchTerm("");
           }}
         >
+          <TextField
+            placeholder="Search meals..."
+            size="small"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            sx={{ margin: "10px", width: "250px" }}
+          />
+
           <MenuItem onClick={handleClearMeal}>Clear meal</MenuItem>
 
-          {availableMeals.map((meal, index) => (
-            <MenuItem
-              key={meal._id || `${meal.name}-${index}`}
-              onClick={() => handleMealSelect(meal)}
-            >
-              {meal.name}
-            </MenuItem>
-          ))}
+          {availableMeals
+            .filter((meal) =>
+              meal.name.toLowerCase().includes(searchTerm.toLowerCase()),
+            )
+            .map((meal, index) => (
+              <MenuItem
+                key={meal._id || `${meal.name}-${index}`}
+                onClick={() => handleMealSelect(meal)}
+              >
+                {meal.name}
+              </MenuItem>
+            ))}
         </Menu>
       </div>
     </section>
