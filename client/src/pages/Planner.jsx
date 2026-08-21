@@ -262,6 +262,7 @@ function Planner() {
             size="small"
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
+            onKeyDown={(event) => event.stopPropagation()}
             sx={{ margin: "10px", width: "250px" }}
           />
 
@@ -274,7 +275,11 @@ function Planner() {
             .map((meal, index) => (
               <MenuItem
                 key={meal._id || `${meal.name}-${index}`}
-                onClick={() => setSelectedRecipe(meal)}
+                onClick={() => {
+                  setSelectedRecipe(meal);
+                  setAnchorEl(null);
+                  setSearchTerm("");
+                }}
               >
                 {meal.name}
               </MenuItem>
