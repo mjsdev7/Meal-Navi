@@ -49,6 +49,10 @@ function Navbar() {
             Planner
           </Button>
 
+          <Button color="inherit" component={Link} to="/shopping-list">
+            Shopping List
+          </Button>
+
           <Button color="inherit" component={Link} to="/login">
             Log In
           </Button>

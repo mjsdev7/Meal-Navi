@@ -1,0 +1,108 @@
+.shopping-list-page {
+  min-height: 100vh;
+  padding: 120px 30px 50px;
+  background: #E8A15A;
+  box-sizing: border-box;
+}
+
+.shopping-list-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.shopping-list-container h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 3rem;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.shopping-list-container > p {
+  color: white;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+.shopping-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.shopping-controls input {
+  flex: 1;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+}
+
+.shopping-controls button,
+.clear-button,
+.delete-button {
+  border: none;
+  border-radius: 25px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.shopping-controls button {
+  background: #B86B3C;
+  color: white;
+}
+
+.clear-button {
+  background: white;
+  color: #B86B3C;
+  margin-bottom: 20px;
+}
+
+.shopping-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.shopping-item {
+  background: #FFF8F0;
+  border-radius: 15px;
+  padding: 15px 20px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: left;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.shopping-item span {
+  flex: 1;
+  font-size: 1.05rem;
+  color: #444;
+}
+
+.shopping-item.checked span {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.delete-button {
+  background: transparent;
+  color: #B86B3C;
+}
+
+@media (max-width: 600px) {
+  .shopping-list-page {
+    padding: 100px 15px 40px;
+  }
+
+  .shopping-list-container h1 {
+    font-size: 2.3rem;
+  }
+
+  .shopping-controls {
+    flex-direction: column;
+  }
+}

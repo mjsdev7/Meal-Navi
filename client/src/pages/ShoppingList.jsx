@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./ShoppingList.css";
 
 function ShoppingList() {
   const [items, setItems] = useState([]);
@@ -135,37 +136,51 @@ function ShoppingList() {
   };
 
   return (
-    <section>
-      <h1>Shopping List</h1>
+    <section className="shopping-list-page">
+      <div className="shopping-list-container">
+        <h1>Shopping List</h1>
 
-      <div>
-        <input
-          type="text"
-          placeholder="Add an item"
-          value={newItem}
-          onChange={(e) => setNewItem(e.target.value)}
-        />
+        <p>Everything you need for your planned meals.</p>
 
-        <button onClick={addItem}>Add</button>
+        <div className="shopping-controls">
+          <input
+            type="text"
+            placeholder="Add an item..."
+            value={newItem}
+            onChange={(e) => setNewItem(e.target.value)}
+          />
 
-        <button onClick={clearCompleted}>Clear completed</button>
+          <button onClick={addItem}>Add</button>
+        </div>
+
+        <button className="clear-button" onClick={clearCompleted}>
+          Clear completed
+        </button>
+
+        <ul className="shopping-items">
+          {items.map((item, index) => (
+            <li
+              key={index}
+              className={`shopping-item ${item.checked ? "checked" : ""}`}
+            >
+              <input
+                type="checkbox"
+                checked={item.checked}
+                onChange={() => toggleItem(index)}
+              />
+
+              <span>{item.name}</span>
+
+              <button
+                className="delete-button"
+                onClick={() => deleteItem(index)}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <ul>
-        {items.map((item, index) => (
-          <li key={index}>
-            <input
-              type="checkbox"
-              checked={item.checked}
-              onChange={() => toggleItem(index)}
-            />
-
-            {item.name}
-
-            <button onClick={() => deleteItem(index)}>Delete</button>
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }
