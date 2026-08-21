@@ -15,6 +15,7 @@ export const createMeal = async (meal) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify(meal),
   });
@@ -96,6 +97,21 @@ export const generateShoppingList = async () => {
 
   if (!response.ok) {
     throw new Error("Failed to generate shopping list");
+  }
+
+  return response.json();
+};
+
+export const clearAllMealPlans = async () => {
+  const response = await fetch(`${API_URL}/mealplans`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to clear meal plans");
   }
 
   return response.json();

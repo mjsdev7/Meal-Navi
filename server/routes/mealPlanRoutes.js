@@ -4,7 +4,8 @@ const router = express.Router();
 const {
   addMealPlan,
   getMealPlans,
-  deleteMealPlan
+  deleteMealPlan,
+  clearAllMealPlans
 } = require('../controllers/mealPlanController');
 
 const authMiddleware = require('../middleware/authMiddleware');
@@ -12,6 +13,8 @@ const authMiddleware = require('../middleware/authMiddleware');
 router.post('/', authMiddleware, addMealPlan);
 
 router.get('/', authMiddleware, getMealPlans);
+
+router.delete('/', authMiddleware, clearAllMealPlans);
 
 router.delete('/:id', authMiddleware, deleteMealPlan);
 

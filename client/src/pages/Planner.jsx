@@ -10,6 +10,7 @@ import {
   createMealPlan,
   deleteMealPlan,
   generateShoppingList,
+  clearAllMealPlans,
 } from "../services/api";
 
 function Planner() {
@@ -126,9 +127,24 @@ function Planner() {
     }
   };
 
+  const handleClearAllMeals = async () => {
+    try {
+      await clearAllMealPlans();
+
+      setMeals({});
+      setMealPlanIds({});
+      setAnchorEl(null);
+      setSelectedDay(null);
+      setSelectedRecipe(null);
+    } catch (error) {
+      console.error("Error clearing all meal plans:", error);
+    }
+  };
+
   const handleGenerateShoppingList = async () => {
     try {
       await generateShoppingList();
+
       alert("Shopping list generated!");
     } catch (error) {
       console.error("Error generating shopping list:", error);
@@ -156,6 +172,24 @@ function Planner() {
           }}
         >
           Generate Shopping List
+        </Button>
+
+        <Button
+          variant="outlined"
+          onClick={handleClearAllMeals}
+          sx={{
+            marginBottom: "20px",
+            marginLeft: "10px",
+            borderRadius: "25px",
+            borderColor: "white",
+            color: "white",
+            "&:hover": {
+              borderColor: "white",
+              backgroundColor: "rgba(255,255,255,0.1)",
+            },
+          }}
+        >
+          Clear All Meals
         </Button>
 
         {selectedRecipe && (
@@ -262,7 +296,6 @@ function Planner() {
             size="small"
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
-            onKeyDown={(event) => event.stopPropagation()}
             sx={{ margin: "10px", width: "250px" }}
           />
 
@@ -275,11 +308,7 @@ function Planner() {
             .map((meal, index) => (
               <MenuItem
                 key={meal._id || `${meal.name}-${index}`}
-                onClick={() => {
-                  setSelectedRecipe(meal);
-                  setAnchorEl(null);
-                  setSearchTerm("");
-                }}
+                onClick={() => setSelectedRecipe(meal)}
               >
                 {meal.name}
               </MenuItem>

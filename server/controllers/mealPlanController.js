@@ -17,7 +17,6 @@ const addMealPlan = async (req, res) => {
   }
 };
 
-
 const getMealPlans = async (req, res) => {
   try {
     const mealPlans = await MealPlan.find({
@@ -31,7 +30,6 @@ const getMealPlans = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 const deleteMealPlan = async (req, res) => {
   try {
@@ -58,9 +56,25 @@ const deleteMealPlan = async (req, res) => {
   }
 };
 
+const clearAllMealPlans = async (req, res) => {
+  try {
+    await MealPlan.deleteMany({
+      user: req.user.userId
+    });
+
+    res.json({
+      message: "All meal plans cleared"
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
 
 module.exports = {
   addMealPlan,
   getMealPlans,
-  deleteMealPlan
+  deleteMealPlan,
+  clearAllMealPlans
 };
