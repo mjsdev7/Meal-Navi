@@ -7,7 +7,7 @@
 }
 
 .planner-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   text-align: center;
 }
@@ -106,12 +106,28 @@ body {
   background: #E8A15A;
 }
 
+/* Medium screens */
+@media (max-width: 1300px) {
+  .planner-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Smaller laptops / tablets */
 @media (max-width: 1000px) {
+  .planner-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tablets */
+@media (max-width: 750px) {
   .planner-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
+/* Phones */
 @media (max-width: 600px) {
   .planner-section {
     padding: 100px 15px 40px;
@@ -123,5 +139,9 @@ body {
 
   .planner-container h1 {
     font-size: 2.3rem;
+  }
+
+  .planner-container > p {
+    margin-bottom: 25px;
   }
 }
