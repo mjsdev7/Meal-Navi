@@ -15,7 +15,12 @@ function Navbar() {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          padding: "20px 60px",
+          alignItems: "center",
+          flexWrap: "wrap",
+          padding: {
+            xs: "15px 20px",
+            md: "20px 60px",
+          },
         }}
       >
         <Box
@@ -36,7 +41,20 @@ function Navbar() {
           </Typography>
         </Box>
 
-        <Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: {
+              xs: "center",
+              md: "flex-end",
+            },
+            gap: {
+              xs: 0,
+              md: 0.5,
+            },
+          }}
+        >
           <Button color="inherit" component={Link} to="/features">
             Features
           </Button>
