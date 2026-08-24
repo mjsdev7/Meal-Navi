@@ -1,7 +1,15 @@
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <AppBar
       position="fixed"
@@ -63,21 +71,31 @@ function Navbar() {
             How It Works
           </Button>
 
-          <Button color="inherit" component={Link} to="/planner">
-            Planner
-          </Button>
+          {token ? (
+            <>
+              <Button color="inherit" component={Link} to="/planner">
+                Planner
+              </Button>
 
-          <Button color="inherit" component={Link} to="/shopping-list">
-            Shopping List
-          </Button>
+              <Button color="inherit" component={Link} to="/shopping-list">
+                Shopping List
+              </Button>
 
-          <Button color="inherit" component={Link} to="/login">
-            Log In
-          </Button>
+              <Button color="inherit" onClick={handleLogout}>
+                Log Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button color="inherit" component={Link} to="/login">
+                Log In
+              </Button>
 
-          <Button color="inherit" component={Link} to="/register">
-            Sign Up
-          </Button>
+              <Button color="inherit" component={Link} to="/register">
+                Sign Up
+              </Button>
+            </>
+          )}
         </Box>
       </Toolbar>
     </AppBar>
