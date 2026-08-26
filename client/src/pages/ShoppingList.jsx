@@ -158,27 +158,33 @@ function ShoppingList() {
         </button>
 
         <ul className="shopping-items">
-          {items.map((item, index) => (
-            <li
-              key={index}
-              className={`shopping-item ${item.checked ? "checked" : ""}`}
-            >
-              <input
-                type="checkbox"
-                checked={item.checked}
-                onChange={() => toggleItem(index)}
-              />
-
-              <span>{item.name}</span>
-
-              <button
-                className="delete-button"
-                onClick={() => deleteItem(index)}
+          {items.length === 0 ? (
+            <p className="empty-message">
+              Your shopping list is empty. Add an item to get started! 🛒
+            </p>
+          ) : (
+            items.map((item, index) => (
+              <li
+                key={index}
+                className={`shopping-item ${item.checked ? "checked" : ""}`}
               >
-                Delete
-              </button>
-            </li>
-          ))}
+                <input
+                  type="checkbox"
+                  checked={item.checked}
+                  onChange={() => toggleItem(index)}
+                />
+
+                <span>{item.name}</span>
+
+                <button
+                  className="delete-button"
+                  onClick={() => deleteItem(index)}
+                >
+                  Delete
+                </button>
+              </li>
+            ))
+          )}
         </ul>
       </div>
     </section>
