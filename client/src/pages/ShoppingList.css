@@ -32,7 +32,6 @@
 
 .shopping-controls input {
   flex: 1;
-  min-width: 0;
   padding: 14px 18px;
   border: none;
   border-radius: 25px;
@@ -80,10 +79,8 @@
 
 .shopping-item span {
   flex: 1;
-  min-width: 0;
   font-size: 1.05rem;
   color: #444;
-  overflow-wrap: break-word;
 }
 
 .shopping-item.checked span {
@@ -94,17 +91,6 @@
 .delete-button {
   background: transparent;
   color: #B86B3C;
-  flex-shrink: 0;
-}
-
-@media (max-width: 800px) {
-  .shopping-list-page {
-    padding: 120px 20px 40px;
-  }
-
-  .shopping-list-container {
-    max-width: 100%;
-  }
 }
 
 @media (max-width: 600px) {
@@ -116,30 +102,13 @@
     font-size: 2.3rem;
   }
 
-  .shopping-list-container > p {
-    font-size: 1rem;
-  }
-
   .shopping-controls {
     flex-direction: column;
   }
+}
 
-  .shopping-controls input,
-  .shopping-controls button {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .shopping-item {
-    padding: 14px 15px;
-    gap: 10px;
-  }
-
-  .shopping-item span {
-    font-size: 1rem;
-  }
-
-  .delete-button {
-    padding: 8px 12px;
-  }
+.empty-message {
+  color: white;
+  font-size: 1.1rem;
+  margin-top: 30px;
 }
