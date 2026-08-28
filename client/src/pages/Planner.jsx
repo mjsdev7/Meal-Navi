@@ -226,6 +226,16 @@ function Planner() {
             >
               Add to Planner
             </Button>
+
+            <Button
+              variant="outlined"
+              onClick={() => setSelectedRecipe(null)}
+              sx={{
+                marginLeft: "10px",
+              }}
+            >
+              Close
+            </Button>
           </div>
         )}
 
