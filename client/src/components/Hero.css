@@ -79,3 +79,14 @@
   font-size: 1.1rem;
   color: white;
 }
+
+.footer {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 0.9rem;
+  z-index: 3;
+}
