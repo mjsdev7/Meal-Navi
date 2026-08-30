@@ -70,7 +70,9 @@ Users can generate a shopping list from their planned meals and manage the list 
 
 ## Screenshots
 
-Screenshots coming soon.
+### Homepage
+
+![MealNavi Homepage](screenshots/meal-navi-home.png)
 
 ## Project Structure
 
