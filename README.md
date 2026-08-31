@@ -72,7 +72,11 @@ Users can generate a shopping list from their planned meals and manage the list 
 
 ### Homepage
 
-![MealNavi Homepage](screenshots/meal-navi-home.png)
+![Meal Navi Homepage](screenshots/meal-navi-home.png)
+
+### Weekly Meal Planner
+
+![Meal Navi Planner](screenshots/meal-navi-planner.png)
 
 ## Project Structure
 
