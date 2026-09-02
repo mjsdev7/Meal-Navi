@@ -307,7 +307,10 @@ function Planner() {
             .map((meal, index) => (
               <MenuItem
                 key={meal._id || `${meal.name}-${index}`}
-                onClick={() => setSelectedRecipe(meal)}
+                onClick={() => {
+                  setSelectedRecipe(meal);
+                  setAnchorEl(null);
+                }}
               >
                 {meal.name}
               </MenuItem>
