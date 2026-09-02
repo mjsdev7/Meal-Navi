@@ -78,6 +78,10 @@ Users can generate a shopping list from their planned meals and manage the list 
 
 ![Meal Navi Planner](screenshots/meal-navi-planner.png)
 
+### Shopping List
+
+![Meal Navi Shopping List](screenshots/meal-navi-shopping-list.png)
+
 ## Project Structure
 
 ```text
