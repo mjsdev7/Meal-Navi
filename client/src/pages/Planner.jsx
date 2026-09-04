@@ -137,7 +137,7 @@ function Planner() {
       setSelectedDay(null);
       setSelectedRecipe(null);
     } catch (error) {
-      console.error("Error clearing all meal plans:", error);
+      console.error("Error clearing all meals:", error);
     }
   };
 
@@ -304,6 +304,7 @@ function Planner() {
             .filter((meal) =>
               meal.name.toLowerCase().includes(searchTerm.toLowerCase()),
             )
+            .sort((a, b) => a.name.localeCompare(b.name))
             .map((meal, index) => (
               <MenuItem
                 key={meal._id || `${meal.name}-${index}`}
