@@ -55,6 +55,7 @@
 
 .shopping-actions {
   display: flex;
+  justify-content: center;
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -141,6 +142,7 @@
 
   .shopping-actions {
     flex-direction: column;
+    align-items: center;
   }
 
   .shopping-item {
