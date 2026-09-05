@@ -1,19 +1,20 @@
 .shopping-list-page {
   min-height: 100vh;
-  padding: 120px 30px 50px;
-  background: #E8A15A;
+  width: 100%;
   box-sizing: border-box;
+  background: #E8A15A;
+  padding: 120px 30px 50px;
 }
 
 .shopping-list-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   text-align: center;
 }
 
 .shopping-list-container h1 {
-  font-family: "Playfair Display", serif;
   font-size: 3rem;
+  font-family: "Playfair Display", serif;
   color: white;
   margin-bottom: 10px;
 }
@@ -21,42 +22,54 @@
 .shopping-list-container > p {
   color: white;
   font-size: 1.1rem;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .shopping-controls {
   display: flex;
   gap: 10px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .shopping-controls input {
   flex: 1;
-  padding: 14px 18px;
+  padding: 12px 15px;
   border: none;
-  border-radius: 25px;
+  border-radius: 8px;
   font-size: 1rem;
 }
 
-.shopping-controls button,
-.clear-button,
-.delete-button {
-  border: none;
-  border-radius: 25px;
-  padding: 12px 20px;
-  cursor: pointer;
-  font-size: 0.95rem;
-}
-
 .shopping-controls button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
   background: #B86B3C;
   color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.shopping-controls button:hover {
+  background: #9F5830;
+}
+
+.shopping-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .clear-button {
-  background: white;
-  color: #B86B3C;
-  margin-bottom: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #B86B3C;
+  color: white;
+  cursor: pointer;
+}
+
+.clear-button:hover {
+  background: #9F5830;
 }
 
 .shopping-items {
@@ -66,31 +79,51 @@
 }
 
 .shopping-item {
-  background: #FFF8F0;
-  border-radius: 15px;
-  padding: 15px 20px;
-  margin-bottom: 12px;
   display: flex;
   align-items: center;
   gap: 15px;
-  text-align: left;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  background: white;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.shopping-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
 }
 
 .shopping-item span {
   flex: 1;
-  font-size: 1.05rem;
+  text-align: left;
   color: #444;
+  font-size: 1rem;
 }
 
 .shopping-item.checked span {
   text-decoration: line-through;
-  opacity: 0.5;
+  color: #999;
 }
 
 .delete-button {
-  background: transparent;
-  color: #B86B3C;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  background: #ddd;
+  color: #444;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background: #ccc;
+}
+
+.empty-message {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  color: #666;
 }
 
 @media (max-width: 600px) {
@@ -105,10 +138,13 @@
   .shopping-controls {
     flex-direction: column;
   }
-}
 
-.empty-message {
-  color: white;
-  font-size: 1.1rem;
-  margin-top: 30px;
+  .shopping-actions {
+    flex-direction: column;
+  }
+
+  .shopping-item {
+    gap: 10px;
+    padding: 12px 15px;
+  }
 }
