@@ -135,6 +135,29 @@ function ShoppingList() {
     }
   };
 
+  const deleteAll = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/shoppinglist", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          items: [],
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete all items");
+      }
+
+      setItems([]);
+    } catch (error) {
+      console.error("Error deleting all items:", error);
+    }
+  };
+
   return (
     <section className="shopping-list-page">
       <div className="shopping-list-container">
@@ -153,9 +176,15 @@ function ShoppingList() {
           <button onClick={addItem}>Add</button>
         </div>
 
-        <button className="clear-button" onClick={clearCompleted}>
-          Clear completed
-        </button>
+        <div className="shopping-actions">
+          <button className="clear-button" onClick={clearCompleted}>
+            Clear completed
+          </button>
+
+          <button className="clear-button" onClick={deleteAll}>
+            Delete All
+          </button>
+        </div>
 
         <ul className="shopping-items">
           {items.length === 0 ? (
