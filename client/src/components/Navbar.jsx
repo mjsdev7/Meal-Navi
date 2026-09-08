@@ -1,9 +1,35 @@
+import { useEffect, useState } from "react";
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const [showNavbar, setShowNavbar] = useState(true);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY <= 10) {
+        setShowNavbar(true);
+      } else if (currentScrollY > lastScrollY) {
+        setShowNavbar(false);
+      } else {
+        setShowNavbar(true);
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -17,6 +43,8 @@ function Navbar() {
         background: "transparent",
         boxShadow: "none",
         color: "white",
+        transform: showNavbar ? "translateY(0)" : "translateY(-100%)",
+        transition: "transform 0.3s ease-in-out",
       }}
     >
       <Toolbar
