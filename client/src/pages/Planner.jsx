@@ -1,5 +1,6 @@
 import "./Planner.css";
 import { useState, useEffect } from "react";
+
 import { Button, Menu, MenuItem, TextField } from "@mui/material";
 
 import {
@@ -68,6 +69,20 @@ function Planner() {
 
     loadPlanner();
   }, []);
+
+  // Scroll to the recipe details after the recipe has rendered
+  useEffect(() => {
+    if (selectedRecipe) {
+      const recipeDetails = document.querySelector(".recipe-details");
+
+      if (recipeDetails) {
+        recipeDetails.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }
+  }, [selectedRecipe]);
 
   const handleMealSelect = async (meal) => {
     const [day, mealType] = selectedDay.split("-");
@@ -148,6 +163,7 @@ function Planner() {
       alert("Shopping list generated!");
     } catch (error) {
       console.error("Error generating shopping list:", error);
+
       alert("Could not generate shopping list.");
     }
   };
@@ -236,6 +252,7 @@ function Planner() {
 
               <div className="meal-slot">
                 <span>🌅</span>
+
                 <h3>Breakfast</h3>
 
                 <Button
@@ -251,6 +268,7 @@ function Planner() {
 
               <div className="meal-slot">
                 <span>☀️</span>
+
                 <h3>Lunch</h3>
 
                 <Button
@@ -266,6 +284,7 @@ function Planner() {
 
               <div className="meal-slot">
                 <span>🌙</span>
+
                 <h3>Dinner</h3>
 
                 <Button
@@ -295,7 +314,10 @@ function Planner() {
             size="small"
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
-            sx={{ margin: "10px", width: "250px" }}
+            sx={{
+              margin: "10px",
+              width: "250px",
+            }}
           />
 
           <MenuItem onClick={handleClearMeal}>Clear meal</MenuItem>
