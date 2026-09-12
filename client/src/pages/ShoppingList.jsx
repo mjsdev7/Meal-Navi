@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import "./ShoppingList.css";
 
 function ShoppingList() {
@@ -8,7 +9,7 @@ function ShoppingList() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch("http://localhost:3000/api/shoppinglist", {
+    fetch(`${import.meta.env.VITE_API_URL}/shoppinglist`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -36,16 +37,19 @@ function ShoppingList() {
     ];
 
     try {
-      const response = await fetch("http://localhost:3000/api/shoppinglist", {
-        method: items.length === 0 ? "POST" : "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/shoppinglist`,
+        {
+          method: items.length === 0 ? "POST" : "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            items: updatedItems,
+          }),
         },
-        body: JSON.stringify({
-          items: updatedItems,
-        }),
-      });
+      );
 
       if (!response.ok) {
         throw new Error("Failed to save shopping list");
@@ -64,16 +68,19 @@ function ShoppingList() {
     );
 
     try {
-      const response = await fetch("http://localhost:3000/api/shoppinglist", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/shoppinglist`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            items: updatedItems,
+          }),
         },
-        body: JSON.stringify({
-          items: updatedItems,
-        }),
-      });
+      );
 
       if (!response.ok) {
         throw new Error("Failed to update shopping list");
@@ -89,16 +96,19 @@ function ShoppingList() {
     const updatedItems = items.filter((_, itemIndex) => itemIndex !== index);
 
     try {
-      const response = await fetch("http://localhost:3000/api/shoppinglist", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/shoppinglist`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            items: updatedItems,
+          }),
         },
-        body: JSON.stringify({
-          items: updatedItems,
-        }),
-      });
+      );
 
       if (!response.ok) {
         throw new Error("Failed to delete item");
@@ -114,16 +124,19 @@ function ShoppingList() {
     const updatedItems = items.filter((item) => !item.checked);
 
     try {
-      const response = await fetch("http://localhost:3000/api/shoppinglist", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/shoppinglist`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            items: updatedItems,
+          }),
         },
-        body: JSON.stringify({
-          items: updatedItems,
-        }),
-      });
+      );
 
       if (!response.ok) {
         throw new Error("Failed to clear completed items");
@@ -137,16 +150,19 @@ function ShoppingList() {
 
   const deleteAll = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/shoppinglist", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/shoppinglist`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            items: [],
+          }),
         },
-        body: JSON.stringify({
-          items: [],
-        }),
-      });
+      );
 
       if (!response.ok) {
         throw new Error("Failed to delete all items");
@@ -162,7 +178,6 @@ function ShoppingList() {
     <section className="shopping-list-page">
       <div className="shopping-list-container">
         <h1>Shopping List</h1>
-
         <p>Everything you need for your planned meals.</p>
 
         <div className="shopping-controls">
@@ -172,7 +187,6 @@ function ShoppingList() {
             value={newItem}
             onChange={(e) => setNewItem(e.target.value)}
           />
-
           <button onClick={addItem}>Add</button>
         </div>
 
