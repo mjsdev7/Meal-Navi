@@ -16,7 +16,7 @@ function Register() {
       return;
     }
 
-    fetch("http://localhost:3000/api/users/register", {
+    fetch(`${import.meta.env.VITE_API_URL}/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
