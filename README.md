@@ -1,10 +1,15 @@
 # Meal Navi
 
-Plan smarter. Shop easier.
+**Plan smarter. Shop easier.**
 
-Meal Navi is a full-stack meal planning application designed to help users discover recipes, organise their meals for the week, and generate shopping lists.
+Meal Navi is a full-stack meal planning application designed to help users discover recipes, organise meals for the week, and generate shopping lists.
 
-The project was built to solve a practical everyday problem while demonstrating modern full-stack web development skills.
+Built as a portfolio project to demonstrate practical full-stack web development skills across React, Node.js, Express, MongoDB, authentication, API integration, and deployment.
+
+**Live Demo:** https://meal-navi.vercel.app/
+**GitHub:** https://github.com/mjsdev7/Meal-Navi
+
+---
 
 ## Features
 
@@ -13,14 +18,16 @@ The project was built to solve a practical everyday problem while demonstrating 
 - Password hashing with bcrypt
 - User profiles
 - Recipe discovery and search
-- Recipe details and ingredients
+- Recipe details, ingredients, and instructions
 - Weekly meal planner
-- Breakfast, lunch and dinner planning
+- Breakfast, lunch, and dinner planning
 - Persistent meal plans
 - Automatic shopping list generation
-- Add, check and delete shopping-list items
+- Add, check, and delete shopping-list items
 - Persistent shopping lists
 - Responsive design
+
+---
 
 ## Tech Stack
 
@@ -50,9 +57,14 @@ The project was built to solve a practical everyday problem while demonstrating 
 - JSON Web Tokens (JWT)
 - bcrypt
 
-### APIs
+### APIs & Deployment
 
 - Recipe API integration
+- Vercel
+- Render
+- MongoDB Atlas
+
+---
 
 ## How It Works
 
@@ -62,11 +74,13 @@ Users can search for recipes and view recipe details, including ingredients and 
 
 ### Meal Planning
 
-Recipes can be added to a weekly planner with separate slots for breakfast, lunch and dinner.
+Recipes can be added to a weekly planner with separate slots for breakfast, lunch, and dinner.
 
 ### Shopping Lists
 
-Users can generate a shopping list from their planned meals and manage the list by adding, checking and deleting items.
+Users can generate a shopping list from planned meals and manage the list by adding, checking, and deleting items.
+
+---
 
 ## Screenshots
 
@@ -81,6 +95,8 @@ Users can generate a shopping list from their planned meals and manage the list 
 ### Shopping List
 
 ![Meal Navi Shopping List](screenshots/meal-navi-shopping-list.png)
+
+---
 
 ## Project Structure
 
@@ -104,6 +120,8 @@ Meal-Navi/
 └── README.md
 ```
 
+---
+
 ## Project Goals
 
 This project demonstrates practical experience with:
@@ -114,11 +132,14 @@ This project demonstrates practical experience with:
 - Authentication and authorisation
 - Database design with MongoDB and Mongoose
 - CRUD operations
-- API integration
+- External API integration
 - React state management
 - Responsive UI development
 - Git and GitHub
-- Building and debugging a complete application
+- Deployment and production configuration
+- Debugging across frontend and backend environments
+
+---
 
 ## Future Improvements
 
@@ -129,10 +150,23 @@ Possible future improvements include:
 - Pantry tracking
 - Leftover meal suggestions
 - Dark mode
-- Production deployment
+
+---
+
+## Deployment
+
+Meal Navi is deployed as a separate frontend and backend application.
+
+**Frontend:** Vercel
+**Backend:** Render
+**Database:** MongoDB Atlas
+
+Environment variables are used to configure API URLs and sensitive application settings for development and production environments.
+
+---
 
 ## Author
 
-Matt Swales
+**Matt Swales**
 
 Built as a portfolio project to demonstrate full-stack web development skills.
