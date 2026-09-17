@@ -11,14 +11,10 @@ function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY <= 10) {
-        setShowNavbar(true);
-      } else {
-        setShowNavbar(false);
-      }
+      setShowNavbar(window.scrollY <= 10);
     };
+
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll);
 
@@ -39,8 +35,10 @@ function Navbar() {
         background: "transparent",
         boxShadow: "none",
         color: "white",
-        transform: showNavbar ? "translateY(0)" : "translateY(-100%)",
-        transition: "transform 0.3s ease-in-out",
+        opacity: showNavbar ? 1 : 0,
+        visibility: showNavbar ? "visible" : "hidden",
+        pointerEvents: showNavbar ? "auto" : "none",
+        transition: "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out",
       }}
     >
       <Toolbar
