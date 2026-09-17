@@ -4,24 +4,20 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
   const navigate = useNavigate();
+
   const token = localStorage.getItem("token");
+
   const [showNavbar, setShowNavbar] = useState(true);
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
       if (currentScrollY <= 10) {
         setShowNavbar(true);
-      } else if (currentScrollY > lastScrollY) {
-        setShowNavbar(false);
       } else {
-        setShowNavbar(true);
+        setShowNavbar(false);
       }
-
-      lastScrollY = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll);
