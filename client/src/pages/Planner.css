@@ -30,6 +30,7 @@
   grid-template-columns: repeat(7, 1fr);
   gap: 15px;
   align-items: stretch;
+  min-width: 1200px;
 }
 
 .day-card {
@@ -123,36 +124,17 @@ body {
   background: #E8A15A;
 }
 
-/* Medium screens */
-@media (max-width: 1300px) {
-  .planner-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* Smaller laptops / tablets */
-@media (max-width: 1000px) {
-  .planner-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Tablets */
-@media (max-width: 750px) {
-  .planner-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 /* Phones */
 @media (max-width: 600px) {
   .planner-section {
     padding: 110px 15px 40px;
+    overflow-x: auto;
   }
 
   .planner-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    min-width: 1200px;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 15px;
   }
 
   .planner-container h1 {
