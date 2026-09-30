@@ -4,9 +4,10 @@
   box-sizing: border-box;
   background-color: #E8A15A;
   background-image: url('/images/meal-navi-background.png');
-  background-size: 100% auto;
+  background-size: auto;
   background-position: center top;
   background-repeat: repeat-y;
+
   padding: 130px 30px 50px;
 }
 
