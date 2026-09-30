@@ -120,7 +120,7 @@
 
 body {
   margin: 0;
-  background: #E8A15A;
+  background: #E8A15A url('/images/meal-navi-background.png') center / cover no-repeat;
 }
 
 /* Medium screens */
