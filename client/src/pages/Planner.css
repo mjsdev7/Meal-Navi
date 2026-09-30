@@ -3,7 +3,9 @@
   width: 100%;
   box-sizing: border-box;
   background: #E8A15A url('/images/meal-navi-background.png') center / cover no-repeat;
-  padding: 130px 30px 50px;
+  padding: 110px 30px 30px;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 .planner-container {
@@ -16,13 +18,13 @@
   font-size: 3rem;
   font-family: "Playfair Display", serif;
   color: white;
-  margin-bottom: 10px;
+  margin: 0 0 8px;
 }
 
 .planner-container > p {
   color: white;
   font-size: 1.1rem;
-  margin-bottom: 40px;
+  margin: 0 0 25px;
 }
 
 .planner-grid {
@@ -36,22 +38,22 @@
 .day-card {
   background: #FFF8F0;
   border-radius: 18px;
-  padding: 20px 15px;
+  padding: 15px 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
 .day-card h2 {
   color: #B86B3C;
   font-size: 1.3rem;
-  margin-bottom: 20px;
+  margin: 0 0 12px;
 }
 
 .meal-slot {
   background: white;
   border-radius: 12px;
-  padding: 15px 10px;
-  margin-bottom: 12px;
-  min-height: 100px;
+  padding: 8px;
+  margin-bottom: 8px;
+  min-height: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -59,14 +61,14 @@
 }
 
 .meal-slot span {
-  font-size: 1.5rem;
-  margin-bottom: 5px;
+  font-size: 1.4rem;
+  margin-bottom: 2px;
 }
 
 .meal-slot h3 {
   color: #B86B3C;
   font-size: 1rem;
-  margin: 5px 0;
+  margin: 3px 0;
 }
 
 .meal-slot p {
@@ -78,7 +80,7 @@
 .recipe-details {
   background: #FFF8F0;
   max-width: 800px;
-  margin: 0 auto 40px;
+  margin: 0 auto 30px;
   padding: 30px;
   border-radius: 20px;
   text-align: left;
@@ -127,8 +129,9 @@ body {
 /* Phones */
 @media (max-width: 600px) {
   .planner-section {
-    padding: 110px 15px 40px;
+    padding: 100px 15px 30px;
     overflow-x: auto;
+    overflow-y: auto;
   }
 
   .planner-grid {
@@ -142,20 +145,20 @@ body {
   }
 
   .planner-container > p {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
   }
 
   .day-card {
-    padding: 20px;
+    padding: 15px 12px;
   }
 
   .day-card h2 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   .meal-slot {
-    min-height: 90px;
-    padding: 15px;
+    min-height: 80px;
+    padding: 8px;
   }
 
   .meal-slot button {
