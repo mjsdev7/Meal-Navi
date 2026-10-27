@@ -51,6 +51,11 @@ const features = [
   },
 ];
 
+// Send signed-in users to the planner and signed-out users to registration.
+const getStartedPath = () => {
+  return localStorage.getItem("token") ? "/planner" : "/register";
+};
+
 function Home() {
   return (
     <main className="home-page">
@@ -73,7 +78,10 @@ function Home() {
           </p>
 
           <div className="home-hero-actions">
-            <Link to="/register" className="home-button home-button-dark">
+            <Link
+              to={getStartedPath()}
+              className="home-button home-button-dark"
+            >
               Get started <span aria-hidden="true">↗</span>
             </Link>
 
@@ -167,7 +175,7 @@ function Home() {
             Start planning with a little more clarity and a lot less stress.
           </p>
 
-          <Link to="/register" className="home-button home-button-light">
+          <Link to={getStartedPath()} className="home-button home-button-light">
             Start your journey <span aria-hidden="true">↗</span>
           </Link>
         </div>
