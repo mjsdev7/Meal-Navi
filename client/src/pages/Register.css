@@ -1,37 +1,115 @@
+
 .register-page {
   min-height: 100vh;
   width: 100%;
-background: #E8A15A url('/images/meal-navi-background.png') center / cover no-repeat;
+  box-sizing: border-box;
   display: flex;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-  padding: 20px;
+  justify-content: center;
+  padding: 50px 20px;
+  background: #FFFFFF;
+  color: #242424;
 }
 
 .register-card {
-  background: #FFF8F0;
   width: 100%;
-  max-width: 420px;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  max-width: 500px;
+  box-sizing: border-box;
+  padding: 42px;
+  background: #FFFFFF;
+  border: 1px solid #E8E3DA;
+  border-radius: 4px;
 }
 
 .register-card h1 {
-  font-size: 2.5rem;
-  font-family: "Playfair Display", serif;
-  color: #B86B3C;
-  margin-bottom: 10px;
+  margin: 0 0 12px;
+  color: #242424;
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: clamp(2.4rem, 5vw, 3.1rem);
+  font-weight: 400;
+  line-height: 1.15;
+  text-align: center;
 }
 
-.register-card p {
-  color: #666;
-  margin-bottom: 20px;
-  line-height: 1.6;
+.register-card > p {
+  margin: 0 0 25px;
+  color: #6B665F;
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  text-align: center;
 }
 
 .register-form {
   display: flex;
   flex-direction: column;
+  gap: 8px;
+}
+
+.register-form .MuiTextField-root {
+  margin: 0;
+}
+
+.register-form .MuiInputLabel-root {
+  color: #777169;
+}
+
+.register-form .MuiOutlinedInput-root {
+  border-radius: 3px;
+  background: #FFFFFF;
+  color: #242424;
+  font-family: Arial, sans-serif;
+}
+
+.register-form .MuiOutlinedInput-notchedOutline {
+  border-color: #D8D2C8;
+}
+
+.register-form .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #242424;
+}
+
+.register-form .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #242424;
+  border-width: 1px;
+}
+
+.register-form .MuiInputLabel-root.Mui-focused {
+  color: #242424;
+}
+
+.register-form .MuiButton-root {
+  margin-top: 16px;
+  min-height: 48px;
+  border: 1px solid #242424;
+  border-radius: 3px;
+  background: #242424;
+  color: #FFFFFF;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  box-shadow: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.register-form .MuiButton-root:hover {
+  background: #FFFFFF;
+  color: #242424;
+  box-shadow: none;
+}
+
+@media (max-width: 600px) {
+  .register-page {
+    padding: 30px 18px;
+  }
+
+  .register-card {
+    padding: 30px 22px;
+  }
+
+  .register-card h1 {
+    font-size: 2.4rem;
+  }
 }
