@@ -1,8 +1,6 @@
 import "./Planner.css";
-import mealPlannerBanner from "../images/meal-planner-banner.jpg";
 
 import { useState, useEffect } from "react";
-
 import { Button, Menu, MenuItem, TextField } from "@mui/material";
 
 import {
@@ -125,7 +123,9 @@ function Planner() {
     const mealPlanId = mealPlanIds[selectedDay];
 
     try {
-      if (mealPlanId) await deleteMealPlan(mealPlanId);
+      if (mealPlanId) {
+        await deleteMealPlan(mealPlanId);
+      }
 
       setMeals((previous) => {
         const updated = { ...previous };
@@ -151,6 +151,7 @@ function Planner() {
   const handleClearAllMeals = async () => {
     try {
       await clearAllMealPlans();
+
       setMeals({});
       setMealPlanIds({});
       setAnchorEl(null);
@@ -214,13 +215,15 @@ function Planner() {
           </p>
         </header>
 
+        {/* Planner banner image */}
         <div className="planner-banner">
           <img
-            src={mealPlannerBanner}
+            src="/images/meal-planner-banner.jpg"
             alt="Fresh ingredients prepared for weekly meal planning"
           />
         </div>
 
+        {/* Selected recipe details */}
         {selectedRecipe && (
           <div className="recipe-details">
             {selectedRecipe.image && (
@@ -236,6 +239,7 @@ function Planner() {
             )}
 
             <h3>Ingredients</h3>
+
             <ul>
               {selectedRecipe.ingredients?.map((ingredient, index) => (
                 <li key={index}>{ingredient}</li>
@@ -255,6 +259,7 @@ function Planner() {
           </div>
         )}
 
+        {/* Weekly meal planner */}
         <div className="planner-grid">
           {days.map((day) => (
             <div className="day-row" key={day}>
@@ -288,6 +293,7 @@ function Planner() {
           ))}
         </div>
 
+        {/* Planner actions */}
         <div className="planner-actions">
           <Button
             className="planner-primary-button"
@@ -306,6 +312,7 @@ function Planner() {
           </Button>
         </div>
 
+        {/* Meal selection menu */}
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
