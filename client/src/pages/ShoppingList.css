@@ -1,9 +1,11 @@
+
 .shopping-list-page {
   min-height: 100vh;
   width: 100%;
   box-sizing: border-box;
-background: #E8A15A url('/images/meal-navi-background.png') center / cover no-repeat;
-  padding: 120px 30px 50px;
+  background: #FFFFFF;
+  padding: 70px 5% 90px;
+  color: #242424;
 }
 
 .shopping-list-container {
@@ -13,140 +15,196 @@ background: #E8A15A url('/images/meal-navi-background.png') center / cover no-re
 }
 
 .shopping-list-container h1 {
-  font-size: 3rem;
-  font-family: "Playfair Display", serif;
-  color: white;
-  margin-bottom: 10px;
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: clamp(2.8rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: #242424;
+  margin: 0 0 14px;
 }
 
 .shopping-list-container > p {
-  color: white;
-  font-size: 1.1rem;
-  margin-bottom: 40px;
+  color: #6B665F;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0 0 38px;
 }
 
 .shopping-controls {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .shopping-controls input {
   flex: 1;
-  padding: 12px 15px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid #D8D2C8;
+  border-radius: 3px;
+  background: #FFFFFF;
+  color: #242424;
+  font-size: 0.95rem;
+  font-family: Arial, sans-serif;
+  outline: none;
+}
+
+.shopping-controls input:focus {
+  border-color: #242424;
+}
+
+.shopping-controls input::placeholder {
+  color: #99938A;
 }
 
 .shopping-controls button {
-  padding: 12px 25px;
-  border: none;
-  border-radius: 8px;
-  background: #B86B3C;
-  color: white;
-  font-size: 1rem;
+  padding: 13px 25px;
+  border: 1px solid #242424;
+  border-radius: 3px;
+  background: #242424;
+  color: #FFFFFF;
+  font-size: 0.9rem;
   cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .shopping-controls button:hover {
-  background: #9F5830;
+  background: #FFFFFF;
+  color: #242424;
 }
 
 .shopping-actions {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .clear-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  background: #B86B3C;
-  color: white;
+  padding: 9px 13px;
+  border: 1px solid #D8D2C8;
+  border-radius: 3px;
+  background: #FFFFFF;
+  color: #6B665F;
+  font-family: Arial, sans-serif;
+  font-size: 0.8rem;
   cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .clear-button:hover {
-  background: #9F5830;
+  background: #F8F6F2;
+  border-color: #242424;
 }
 
 .shopping-items {
   list-style: none;
   padding: 0;
   margin: 0;
+  border-top: 1px solid #E8E3DA;
 }
 
 .shopping-item {
   display: flex;
   align-items: center;
-  gap: 15px;
-  background: white;
-  padding: 15px 20px;
-  margin-bottom: 10px;
-  border-radius: 8px;
+  gap: 14px;
+  padding: 17px 12px;
+  border-bottom: 1px solid #E8E3DA;
+  background: #FFFFFF;
+  transition: background 0.2s ease;
+}
+
+.shopping-item:hover {
+  background: #FAF9F6;
 }
 
 .shopping-item input[type="checkbox"] {
   width: 18px;
   height: 18px;
+  flex-shrink: 0;
+  accent-color: #242424;
   cursor: pointer;
 }
 
 .shopping-item span {
   flex: 1;
-  text-align: left;
-  color: #444;
-  font-size: 1rem;
+  min-width: 0;
+  color: #242424;
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .shopping-item.checked span {
+  color: #99938A;
   text-decoration: line-through;
-  color: #999;
 }
 
 .delete-button {
-  padding: 8px 15px;
-  border: none;
-  border-radius: 6px;
-  background: #ddd;
-  color: #444;
+  flex-shrink: 0;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: transparent;
+  color: #8A6258;
+  font-size: 0.8rem;
   cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .delete-button:hover {
-  background: #ccc;
+  background: #F8F6F2;
+  border-color: #E8E3DA;
 }
 
 .empty-message {
-  background: white;
-  padding: 30px;
-  border-radius: 8px;
-  color: #666;
+  padding: 45px 20px;
+  text-align: center;
+  color: #6B665F;
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
 }
 
 @media (max-width: 600px) {
   .shopping-list-page {
-    padding: 100px 15px 40px;
+    padding: 45px 18px 60px;
   }
 
   .shopping-list-container h1 {
-    font-size: 2.3rem;
+    font-size: 2.7rem;
+  }
+
+  .shopping-list-container > p {
+    margin-bottom: 28px;
   }
 
   .shopping-controls {
-    flex-direction: column;
+    gap: 8px;
+  }
+
+  .shopping-controls input {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  .shopping-controls button {
+    padding: 12px 17px;
   }
 
   .shopping-actions {
-    flex-direction: column;
-    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
   }
 
   .shopping-item {
     gap: 10px;
-    padding: 12px 15px;
+    padding: 15px 8px;
+  }
+
+  .shopping-item span {
+    font-size: 0.9rem;
   }
 }
