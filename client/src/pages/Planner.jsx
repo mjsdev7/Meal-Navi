@@ -1,6 +1,5 @@
 import "./Planner.css";
 import { useState, useEffect } from "react";
-
 import { Button, Menu, MenuItem, TextField } from "@mui/material";
 
 import {
@@ -55,7 +54,6 @@ function Planner() {
 
         plansData.forEach((mealPlan) => {
           const key = `${mealPlan.day}-${mealPlan.mealType}`;
-
           savedMeals[key] = mealPlan.meal.name;
           savedIds[key] = mealPlan._id;
         });
@@ -70,7 +68,6 @@ function Planner() {
     loadPlanner();
   }, []);
 
-  // Scroll to the recipe details after the recipe has rendered
   useEffect(() => {
     if (selectedRecipe) {
       const recipeDetails = document.querySelector(".recipe-details");
@@ -159,11 +156,9 @@ function Planner() {
   const handleGenerateShoppingList = async () => {
     try {
       await generateShoppingList();
-
       alert("Shopping list generated!");
     } catch (error) {
       console.error("Error generating shopping list:", error);
-
       alert("Could not generate shopping list.");
     }
   };
@@ -172,50 +167,30 @@ function Planner() {
     <section className="planner-section">
       <div className="planner-container">
         <h1>Weekly Meal Planner</h1>
-
         <p>Plan your meals for the week and stay organised.</p>
 
-        <Button
-          variant="contained"
-          onClick={handleGenerateShoppingList}
-          sx={{
-            marginBottom: "20px",
-            borderRadius: "25px",
-            backgroundColor: "#F7B267",
-            "&:hover": {
-              backgroundColor: "#E89A5A",
-            },
-          }}
-        >
-          Generate Shopping List
-        </Button>
+        <div className="planner-actions">
+          <Button
+            variant="contained"
+            className="planner-primary-button"
+            onClick={handleGenerateShoppingList}
+          >
+            Generate Shopping List
+          </Button>
 
-        <Button
-          variant="outlined"
-          onClick={handleClearAllMeals}
-          sx={{
-            marginBottom: "20px",
-            marginLeft: "10px",
-            borderRadius: "25px",
-            borderColor: "white",
-            color: "white",
-            "&:hover": {
-              borderColor: "white",
-              backgroundColor: "rgba(255,255,255,0.1)",
-            },
-          }}
-        >
-          Clear All Meals
-        </Button>
+          <Button
+            variant="outlined"
+            className="planner-secondary-button"
+            onClick={handleClearAllMeals}
+          >
+            Clear All Meals
+          </Button>
+        </div>
 
         {selectedRecipe && (
           <div className="recipe-details">
             {selectedRecipe.image && (
-              <img
-                src={selectedRecipe.image}
-                alt={selectedRecipe.name}
-                width="300"
-              />
+              <img src={selectedRecipe.image} alt={selectedRecipe.name} />
             )}
 
             <h2>{selectedRecipe.name}</h2>
@@ -233,11 +208,11 @@ function Planner() {
             </ul>
 
             <h3>Instructions</h3>
-
             <p>{selectedRecipe.instructions}</p>
 
             <Button
               variant="contained"
+              className="planner-primary-button"
               onClick={() => handleMealSelect(selectedRecipe)}
             >
               Add to Planner
@@ -250,53 +225,28 @@ function Planner() {
             <div className="day-card" key={day}>
               <h2>{day}</h2>
 
-              <div className="meal-slot">
-                <span>🌅</span>
+              {["breakfast", "lunch", "dinner"].map((mealType) => {
+                const mealKey = `${day}-${mealType}`;
+                const label =
+                  mealType.charAt(0).toUpperCase() + mealType.slice(1);
 
-                <h3>Breakfast</h3>
+                return (
+                  <div className="meal-slot" key={mealType}>
+                    <h3>{label}</h3>
 
-                <Button
-                  variant="outlined"
-                  onClick={(event) => {
-                    setAnchorEl(event.currentTarget);
-                    setSelectedDay(`${day}-breakfast`);
-                  }}
-                >
-                  {meals[`${day}-breakfast`] || "Choose a meal"}
-                </Button>
-              </div>
-
-              <div className="meal-slot">
-                <span>☀️</span>
-
-                <h3>Lunch</h3>
-
-                <Button
-                  variant="outlined"
-                  onClick={(event) => {
-                    setAnchorEl(event.currentTarget);
-                    setSelectedDay(`${day}-lunch`);
-                  }}
-                >
-                  {meals[`${day}-lunch`] || "Choose a meal"}
-                </Button>
-              </div>
-
-              <div className="meal-slot">
-                <span>🌙</span>
-
-                <h3>Dinner</h3>
-
-                <Button
-                  variant="outlined"
-                  onClick={(event) => {
-                    setAnchorEl(event.currentTarget);
-                    setSelectedDay(`${day}-dinner`);
-                  }}
-                >
-                  {meals[`${day}-dinner`] || "Choose a meal"}
-                </Button>
-              </div>
+                    <Button
+                      variant="outlined"
+                      className="meal-select-button"
+                      onClick={(event) => {
+                        setAnchorEl(event.currentTarget);
+                        setSelectedDay(mealKey);
+                      }}
+                    >
+                      {meals[mealKey] || "Choose a meal"}
+                    </Button>
+                  </div>
+                );
+              })}
             </div>
           ))}
         </div>
@@ -314,10 +264,7 @@ function Planner() {
             size="small"
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
-            sx={{
-              margin: "10px",
-              width: "250px",
-            }}
+            sx={{ margin: "10px", width: "250px" }}
           />
 
           <MenuItem onClick={handleClearMeal}>Clear meal</MenuItem>

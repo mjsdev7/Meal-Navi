@@ -4,157 +4,227 @@
   width: 100%;
   box-sizing: border-box;
   background: #FFFFFF;
-  padding: 70px 5% 80px;
-  overflow-x: hidden;
+  padding: 70px 5% 90px;
   color: #242424;
 }
 
 .planner-container {
   max-width: 1400px;
   margin: 0 auto;
+}
+
+.planner-container > h1 {
+  margin: 0 0 12px;
+  color: #242424;
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: clamp(2.8rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.15;
   text-align: center;
 }
 
-.planner-container h1 {
-  font-family: "DM Serif Display", Georgia, serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 400;
-  color: #242424;
-  margin: 0 0 12px;
-}
-
 .planner-container > p {
+  margin: 0 0 32px;
   color: #6B665F;
   font-family: Arial, sans-serif;
   font-size: 1rem;
   line-height: 1.7;
-  margin: 0 0 28px;
+  text-align: center;
+}
+
+.planner-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.planner-actions .MuiButton-root,
+.recipe-details .MuiButton-root {
+  min-height: 46px;
+  padding: 11px 22px;
+  border: 1px solid #242424;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: none;
+  box-shadow: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.planner-actions .planner-primary-button,
+.recipe-details .planner-primary-button {
+  background: #242424;
+  color: #FFFFFF;
+}
+
+.planner-actions .planner-primary-button:hover,
+.recipe-details .planner-primary-button:hover {
+  background: #FFFFFF;
+  color: #242424;
+  box-shadow: none;
+}
+
+.planner-actions .planner-secondary-button {
+  background: #FFFFFF;
+  color: #242424;
+  border-color: #D8D2C8;
+}
+
+.planner-actions .planner-secondary-button:hover {
+  background: #F8F6F2;
+  border-color: #242424;
 }
 
 .planner-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 14px;
   align-items: stretch;
-  margin-top: 25px;
+  gap: 14px;
 }
 
 .day-card {
+  min-width: 0;
+  padding: 18px 12px;
   background: #F8F6F2;
   border: 1px solid #E8E3DA;
-  border-radius: 4px;
-  padding: 18px 12px;
-  box-shadow: none;
-  min-width: 0;
+  border-radius: 3px;
 }
 
-.day-card h2 {
+.day-card > h2 {
+  margin: 0 0 18px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #E8E3DA;
   color: #242424;
   font-family: "DM Serif Display", Georgia, serif;
+  font-size: 1.3rem;
   font-weight: 400;
-  font-size: 1.25rem;
-  margin: 0 0 18px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #E5E1DA;
+  text-align: center;
 }
 
 .meal-slot {
-  background: #FFFFFF;
-  border: 1px solid #EAE5DD;
-  border-radius: 4px;
-  padding: 12px 8px;
-  margin-bottom: 10px;
-  min-height: 105px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
+  align-items: stretch;
+  gap: 10px;
+  min-width: 0;
+  margin-bottom: 12px;
+  padding: 14px 9px;
+  background: #FFFFFF;
+  border: 1px solid #E8E3DA;
+  border-radius: 3px;
 }
 
-.meal-slot span {
-  font-size: 1.2rem;
-  margin-bottom: 2px;
+.meal-slot:last-child {
+  margin-bottom: 0;
 }
 
 .meal-slot h3 {
+  margin: 0;
+  color: #6B665F;
+  font-family: Arial, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.meal-slot .meal-select-button {
+  width: 100%;
+  min-width: 0;
+  min-height: 40px;
+  padding: 8px 9px;
+  border: 1px solid #D8D2C8;
+  border-radius: 3px;
+  background: #FFFFFF;
   color: #242424;
   font-family: Arial, sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin: 3px 0 8px;
-}
-
-.meal-slot p {
-  color: #6B665F;
-  font-size: 0.85rem;
-  margin: 0;
-}
-
-.meal-slot button {
-  max-width: 100%;
-  font-size: 0.75rem;
-  line-height: 1.4;
-  border-color: #D8D2C8;
-  color: #242424;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  text-align: left;
   text-transform: none;
-  border-radius: 3px;
   overflow-wrap: anywhere;
+  box-shadow: none;
 }
 
-.meal-slot button:hover {
+.meal-slot .meal-select-button:hover {
   border-color: #242424;
   background: #F8F6F2;
 }
 
 .recipe-details {
+  max-width: 800px;
+  box-sizing: border-box;
+  margin: 0 auto 40px;
+  padding: 32px;
   background: #F8F6F2;
   border: 1px solid #E8E3DA;
-  max-width: 800px;
-  margin: 0 auto 35px;
-  padding: 32px;
-  border-radius: 4px;
+  border-radius: 3px;
   text-align: left;
-  box-shadow: none;
 }
 
 .recipe-details img {
   display: block;
   width: 100%;
   max-width: 500px;
-  height: 280px;
+  max-height: 320px;
   object-fit: cover;
   margin: 0 auto 25px;
   border-radius: 3px;
 }
 
 .recipe-details h2 {
+  margin: 0 0 16px;
   color: #242424;
   font-family: "DM Serif Display", Georgia, serif;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 400;
-  margin-bottom: 15px;
 }
 
 .recipe-details h3 {
+  margin: 25px 0 10px;
   color: #242424;
   font-family: Arial, sans-serif;
   font-size: 1rem;
-  margin-top: 25px;
-  margin-bottom: 10px;
+  font-weight: 600;
 }
 
 .recipe-details p,
-.recipe-details ul {
+.recipe-details li {
   color: #55514B;
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
   line-height: 1.8;
 }
 
 .recipe-details ul {
-  padding-left: 25px;
+  padding-left: 22px;
 }
 
-@media (max-width: 1100px) {
+.recipe-details .MuiButton-root {
+  margin-top: 22px;
+}
+
+.MuiMenu-paper {
+  border: 1px solid #E8E3DA;
+  border-radius: 3px !important;
+  box-shadow: 0 8px 28px rgba(36, 36, 36, 0.08) !important;
+}
+
+.MuiMenuItem-root {
+  color: #242424;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+}
+
+.MuiMenuItem-root:hover {
+  background: #F8F6F2 !important;
+}
+
+@media (max-width: 1200px) {
   .planner-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -162,7 +232,7 @@
 
 @media (max-width: 760px) {
   .planner-section {
-    padding: 45px 18px 55px;
+    padding: 45px 18px 60px;
   }
 
   .planner-grid {
@@ -174,29 +244,24 @@
     padding: 15px 10px;
   }
 
-  .day-card h2 {
+  .day-card > h2 {
     font-size: 1.2rem;
   }
 
   .meal-slot {
-    min-height: 100px;
-    padding: 10px 6px;
+    padding: 12px 8px;
   }
 
-  .meal-slot button {
-    width: 100%;
+  .planner-actions {
+    margin-bottom: 30px;
   }
 
   .recipe-details {
     padding: 22px;
   }
 
-  .recipe-details img {
-    height: 220px;
-  }
-
   .recipe-details h2 {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
   }
 }
 
@@ -205,7 +270,15 @@
     grid-template-columns: 1fr;
   }
 
-  .planner-container h1 {
-    font-size: 2.3rem;
+  .planner-container > h1 {
+    font-size: 2.5rem;
+  }
+
+  .planner-actions {
+    flex-direction: column;
+  }
+
+  .planner-actions .MuiButton-root {
+    width: 100%;
   }
 }
