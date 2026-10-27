@@ -1,6 +1,10 @@
 import "./Planner.css";
+import mealPlannerBanner from "../images/meal-planner-banner.jpg";
+
 import { useState, useEffect } from "react";
+
 import { Button, Menu, MenuItem, TextField } from "@mui/material";
+
 import {
   getMeals,
   getRecipes,
@@ -191,6 +195,7 @@ function Planner() {
       <div className="planner-container">
         <header className="planner-intro">
           <p className="planner-eyebrow">MN · MEAL PLANNING</p>
+
           <p className="planner-tagline">
             Thoughtful design. Seamless planning. Better mealtimes.
           </p>
@@ -209,12 +214,12 @@ function Planner() {
           </p>
         </header>
 
-        {/*
-          BANNER IMAGE:
-          Reuse the image from your homepage here.
-          Add the existing homepage image import and src when you know
-          its filename. No new photo is required.
-        */}
+        <div className="planner-banner">
+          <img
+            src={mealPlannerBanner}
+            alt="Fresh ingredients prepared for weekly meal planning"
+          />
+        </div>
 
         {selectedRecipe && (
           <div className="recipe-details">
@@ -270,6 +275,7 @@ function Planner() {
                         <span className="meal-select-label">
                           {meals[slotKey] || `Select ${label}`}
                         </span>
+
                         <span className="meal-select-arrow" aria-hidden="true">
                           ▾
                         </span>
