@@ -1,10 +1,13 @@
 import "./Login.css";
 import { TextField, Button } from "@mui/material";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const destination = location.state?.from || "/planner";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,7 +34,7 @@ function Login() {
       })
       .then((data) => {
         localStorage.setItem("token", data.token);
-        navigate("/planner");
+        navigate(destination, { replace: true });
       })
       .catch((error) => {
         console.error(error);
@@ -54,6 +57,7 @@ function Login() {
             margin="normal"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
 
           <TextField
@@ -63,6 +67,7 @@ function Login() {
             margin="normal"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
 
           <Button
