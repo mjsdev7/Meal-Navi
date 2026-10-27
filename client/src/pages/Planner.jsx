@@ -1,7 +1,6 @@
 import "./Planner.css";
 import { useState, useEffect } from "react";
 import { Button, Menu, MenuItem, TextField } from "@mui/material";
-
 import {
   getMeals,
   getRecipes,
@@ -13,6 +12,22 @@ import {
   clearAllMealPlans,
 } from "../services/api";
 
+const days = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+
+const mealTypes = [
+  { key: "breakfast", label: "Breakfast" },
+  { key: "lunch", label: "Lunch" },
+  { key: "dinner", label: "Dinner" },
+];
+
 function Planner() {
   const [meals, setMeals] = useState({});
   const [availableMeals, setAvailableMeals] = useState([]);
@@ -21,16 +36,6 @@ function Planner() {
   const [selectedDay, setSelectedDay] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRecipe, setSelectedRecipe] = useState(null);
-
-  const days = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
 
   useEffect(() => {
     const loadPlanner = async () => {
@@ -70,18 +75,15 @@ function Planner() {
 
   useEffect(() => {
     if (selectedRecipe) {
-      const recipeDetails = document.querySelector(".recipe-details");
-
-      if (recipeDetails) {
-        recipeDetails.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
+      document
+        .querySelector(".recipe-details")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [selectedRecipe]);
 
   const handleMealSelect = async (meal) => {
+    if (!selectedDay) return;
+
     const [day, mealType] = selectedDay.split("-");
 
     try {
@@ -94,15 +96,15 @@ function Planner() {
 
       const savedPlan = await createMealPlan(mealId, day, mealType);
 
-      setMeals({
-        ...meals,
+      setMeals((previous) => ({
+        ...previous,
         [selectedDay]: meal.name,
-      });
+      }));
 
-      setMealPlanIds({
-        ...mealPlanIds,
+      setMealPlanIds((previous) => ({
+        ...previous,
         [selectedDay]: savedPlan._id,
-      });
+      }));
 
       setAnchorEl(null);
       setSelectedDay(null);
@@ -114,21 +116,24 @@ function Planner() {
   };
 
   const handleClearMeal = async () => {
+    if (!selectedDay) return;
+
     const mealPlanId = mealPlanIds[selectedDay];
 
     try {
-      if (mealPlanId) {
-        await deleteMealPlan(mealPlanId);
-      }
+      if (mealPlanId) await deleteMealPlan(mealPlanId);
 
-      const updatedMeals = { ...meals };
-      const updatedIds = { ...mealPlanIds };
+      setMeals((previous) => {
+        const updated = { ...previous };
+        delete updated[selectedDay];
+        return updated;
+      });
 
-      delete updatedMeals[selectedDay];
-      delete updatedIds[selectedDay];
-
-      setMeals(updatedMeals);
-      setMealPlanIds(updatedIds);
+      setMealPlanIds((previous) => {
+        const updated = { ...previous };
+        delete updated[selectedDay];
+        return updated;
+      });
 
       setAnchorEl(null);
       setSelectedDay(null);
@@ -142,12 +147,12 @@ function Planner() {
   const handleClearAllMeals = async () => {
     try {
       await clearAllMealPlans();
-
       setMeals({});
       setMealPlanIds({});
       setAnchorEl(null);
       setSelectedDay(null);
       setSelectedRecipe(null);
+      setSearchTerm("");
     } catch (error) {
       console.error("Error clearing all meals:", error);
     }
@@ -163,29 +168,53 @@ function Planner() {
     }
   };
 
+  const openMealMenu = (event, day, mealType) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedDay(`${day}-${mealType}`);
+    setSearchTerm("");
+    setSelectedRecipe(null);
+  };
+
+  const closeMealMenu = () => {
+    setAnchorEl(null);
+    setSearchTerm("");
+  };
+
+  const filteredMeals = availableMeals
+    .filter((meal) =>
+      meal.name.toLowerCase().includes(searchTerm.toLowerCase()),
+    )
+    .sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <section className="planner-section">
       <div className="planner-container">
-        <h1>Weekly Meal Planner</h1>
-        <p>Plan your meals for the week and stay organised.</p>
+        <header className="planner-intro">
+          <p className="planner-eyebrow">MN · MEAL PLANNING</p>
+          <p className="planner-tagline">
+            Thoughtful design. Seamless planning. Better mealtimes.
+          </p>
 
-        <div className="planner-actions">
-          <Button
-            variant="contained"
-            className="planner-primary-button"
-            onClick={handleGenerateShoppingList}
-          >
-            Generate Shopping List
-          </Button>
+          <h1>Plan Your Week, Make Mealtimes Easier</h1>
 
-          <Button
-            variant="outlined"
-            className="planner-secondary-button"
-            onClick={handleClearAllMeals}
-          >
-            Clear All Meals
-          </Button>
-        </div>
+          <p className="planner-description">
+            Plan your breakfasts, lunches, and dinners in one convenient place.
+            Discover meals your family will love, build a weekly meal plan,
+            reduce food waste, and make grocery shopping simpler.
+          </p>
+
+          <p className="planner-instructions">
+            Select a meal for each day to add your chosen dishes. When your plan
+            is ready, create your shopping list.
+          </p>
+        </header>
+
+        {/*
+          BANNER IMAGE:
+          Reuse the image from your homepage here.
+          Add the existing homepage image import and src when you know
+          its filename. No new photo is required.
+        */}
 
         {selectedRecipe && (
           <div className="recipe-details">
@@ -195,12 +224,13 @@ function Planner() {
 
             <h2>{selectedRecipe.name}</h2>
 
-            <p>
-              <strong>Category:</strong> {selectedRecipe.category}
-            </p>
+            {selectedRecipe.category && (
+              <p>
+                <strong>Category:</strong> {selectedRecipe.category}
+              </p>
+            )}
 
             <h3>Ingredients</h3>
-
             <ul>
               {selectedRecipe.ingredients?.map((ingredient, index) => (
                 <li key={index}>{ingredient}</li>
@@ -211,8 +241,8 @@ function Planner() {
             <p>{selectedRecipe.instructions}</p>
 
             <Button
-              variant="contained"
               className="planner-primary-button"
+              variant="contained"
               onClick={() => handleMealSelect(selectedRecipe)}
             >
               Add to Planner
@@ -222,69 +252,87 @@ function Planner() {
 
         <div className="planner-grid">
           {days.map((day) => (
-            <div className="day-card" key={day}>
-              <h2>{day}</h2>
+            <div className="day-row" key={day}>
+              <h2 className="day-heading">{day}</h2>
 
-              {["breakfast", "lunch", "dinner"].map((mealType) => {
-                const mealKey = `${day}-${mealType}`;
-                const label =
-                  mealType.charAt(0).toUpperCase() + mealType.slice(1);
+              <div className="day-card">
+                {mealTypes.map(({ key, label }) => {
+                  const slotKey = `${day}-${key}`;
 
-                return (
-                  <div className="meal-slot" key={mealType}>
-                    <h3>{label}</h3>
-
-                    <Button
-                      variant="outlined"
-                      className="meal-select-button"
-                      onClick={(event) => {
-                        setAnchorEl(event.currentTarget);
-                        setSelectedDay(mealKey);
-                      }}
-                    >
-                      {meals[mealKey] || "Choose a meal"}
-                    </Button>
-                  </div>
-                );
-              })}
+                  return (
+                    <div className="meal-slot" key={key}>
+                      <Button
+                        className="meal-select-button"
+                        variant="outlined"
+                        aria-label={`${label} for ${day}`}
+                        onClick={(event) => openMealMenu(event, day, key)}
+                      >
+                        <span className="meal-select-label">
+                          {meals[slotKey] || `Select ${label}`}
+                        </span>
+                        <span className="meal-select-arrow" aria-hidden="true">
+                          ▾
+                        </span>
+                      </Button>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           ))}
+        </div>
+
+        <div className="planner-actions">
+          <Button
+            className="planner-primary-button"
+            variant="contained"
+            onClick={handleGenerateShoppingList}
+          >
+            Create Shopping List
+          </Button>
+
+          <Button
+            className="planner-secondary-button"
+            variant="outlined"
+            onClick={handleClearAllMeals}
+          >
+            Clear All Meals
+          </Button>
         </div>
 
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
-          onClose={() => {
-            setAnchorEl(null);
-            setSearchTerm("");
+          onClose={closeMealMenu}
+          slotProps={{
+            paper: {
+              className: "planner-meal-menu",
+            },
           }}
         >
-          <TextField
-            placeholder="Search meals..."
-            size="small"
-            value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
-            sx={{ margin: "10px", width: "250px" }}
-          />
+          <div className="planner-search">
+            <TextField
+              placeholder="Search meals..."
+              size="small"
+              fullWidth
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+            />
+          </div>
 
           <MenuItem onClick={handleClearMeal}>Clear meal</MenuItem>
 
-          {availableMeals
-            .filter((meal) =>
-              meal.name.toLowerCase().includes(searchTerm.toLowerCase()),
-            )
-            .sort((a, b) => a.name.localeCompare(b.name))
-            .map((meal, index) => (
-              <MenuItem
-                key={meal._id || `${meal.name}-${index}`}
-                onClick={() => {
-                  setSelectedRecipe(meal);
-                  setAnchorEl(null);
-                }}
-              >
-                {meal.name}
-              </MenuItem>
-            ))}
+          {filteredMeals.map((meal, index) => (
+            <MenuItem
+              key={meal._id || `${meal.name}-${index}`}
+              onClick={() => {
+                setSelectedRecipe(meal);
+                setAnchorEl(null);
+              }}
+            >
+              {meal.name}
+            </MenuItem>
+          ))}
         </Menu>
       </div>
     </section>
