@@ -63,11 +63,11 @@ function Home() {
         <div className="home-hero-copy">
           <p className="eyebrow">A MORE CONSIDERED WAY TO COOK</p>
 
-          <h1>
+          <h1 className="home-title-animation">
             Meal-Navi<span>.</span>
           </h1>
 
-          <p className="home-hero-subtitle">
+          <p className="home-hero-subtitle home-subtitle-animation">
             Thoughtful meal planning, made simple.
           </p>
 
