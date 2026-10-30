@@ -73,7 +73,7 @@
 /* HERO TITLE ANIMATION */
 
 .home-title-animation {
-  animation: titleSlideIn 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: titleSlideIn 3s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes titleSlideIn {
@@ -106,7 +106,7 @@
 
 .home-subtitle-animation {
   opacity: 0;
-  animation: subtitleReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+  animation: subtitleReveal 2.7s cubic-bezier(0.22, 1, 0.36, 1) 1.05s both;
 }
 
 @keyframes subtitleReveal {
