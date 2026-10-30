@@ -1,6 +1,8 @@
 import "./Planner.css";
+import "./Home.css";
 
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Button, Menu, MenuItem, TextField } from "@mui/material";
 
 import {
@@ -192,163 +194,191 @@ function Planner() {
     .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
-    <section className="planner-section">
-      <div className="planner-container">
-        <header className="planner-intro">
-          <p className="planner-eyebrow">MN · MEAL PLANNING</p>
+    <>
+      <section className="planner-section">
+        <div className="planner-container">
+          <header className="planner-intro">
+            <p className="planner-eyebrow">MN · MEAL PLANNING</p>
 
-          <p className="planner-tagline">
-            Thoughtful design. Seamless planning. Better mealtimes.
-          </p>
+            <p className="planner-tagline">
+              Thoughtful design. Seamless planning. Better mealtimes.
+            </p>
 
-          <h1>Plan Your Week, Make Mealtimes Easier</h1>
+            <h1>Plan Your Week, Make Mealtimes Easier</h1>
 
-          <p className="planner-description">
-            Plan your breakfasts, lunches, and dinners in one convenient place.
-            Discover meals your family will love, build a weekly meal plan,
-            reduce food waste, and make grocery shopping simpler.
-          </p>
+            <p className="planner-description">
+              Plan your breakfasts, lunches, and dinners in one convenient
+              place. Discover meals your family will love, build a weekly meal
+              plan, reduce food waste, and make grocery shopping simpler.
+            </p>
 
-          <p className="planner-instructions">
-            Select a meal for each day to add your chosen dishes. When your plan
-            is ready, create your shopping list.
-          </p>
-        </header>
+            <p className="planner-instructions">
+              Select a meal for each day to add your chosen dishes. When your
+              plan is ready, create your shopping list.
+            </p>
+          </header>
 
-        {/* Planner banner image */}
-        <div className="planner-banner">
-          <img
-            src="/images/meal-planner-banner.jpg"
-            alt="Fresh ingredients prepared for weekly meal planning"
-          />
-        </div>
-
-        {/* Selected recipe details */}
-        {selectedRecipe && (
-          <div className="recipe-details">
-            {selectedRecipe.image && (
-              <img src={selectedRecipe.image} alt={selectedRecipe.name} />
-            )}
-
-            <h2>{selectedRecipe.name}</h2>
-
-            {selectedRecipe.category && (
-              <p>
-                <strong>Category:</strong> {selectedRecipe.category}
-              </p>
-            )}
-
-            <h3>Ingredients</h3>
-
-            <ul>
-              {selectedRecipe.ingredients?.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
-              ))}
-            </ul>
-
-            <h3>Instructions</h3>
-            <p>{selectedRecipe.instructions}</p>
-
-            <Button
-              className="planner-primary-button"
-              variant="contained"
-              onClick={() => handleMealSelect(selectedRecipe)}
-            >
-              Add to Planner
-            </Button>
-          </div>
-        )}
-
-        {/* Weekly meal planner */}
-        <div className="planner-grid">
-          {days.map((day) => (
-            <div className="day-row" key={day}>
-              <h2 className="day-heading">{day}</h2>
-
-              <div className="day-card">
-                {mealTypes.map(({ key, label }) => {
-                  const slotKey = `${day}-${key}`;
-
-                  return (
-                    <div className="meal-slot" key={key}>
-                      <Button
-                        className="meal-select-button"
-                        variant="outlined"
-                        aria-label={`${label} for ${day}`}
-                        onClick={(event) => openMealMenu(event, day, key)}
-                      >
-                        <span className="meal-select-label">
-                          {meals[slotKey] || `Select ${label}`}
-                        </span>
-
-                        <span className="meal-select-arrow" aria-hidden="true">
-                          ▾
-                        </span>
-                      </Button>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Planner actions */}
-        <div className="planner-actions">
-          <Button
-            className="planner-primary-button"
-            variant="contained"
-            onClick={handleGenerateShoppingList}
-          >
-            Create Shopping List
-          </Button>
-
-          <Button
-            className="planner-secondary-button"
-            variant="outlined"
-            onClick={handleClearAllMeals}
-          >
-            Clear All Meals
-          </Button>
-        </div>
-
-        {/* Meal selection menu */}
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={closeMealMenu}
-          slotProps={{
-            paper: {
-              className: "planner-meal-menu",
-            },
-          }}
-        >
-          <div className="planner-search">
-            <TextField
-              placeholder="Search meals..."
-              size="small"
-              fullWidth
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
+          <div className="planner-banner">
+            <img
+              src="/images/meal-planner-banner.jpg"
+              alt="Fresh ingredients prepared for weekly meal planning"
             />
           </div>
 
-          <MenuItem onClick={handleClearMeal}>Clear meal</MenuItem>
+          {selectedRecipe && (
+            <div className="recipe-details">
+              {selectedRecipe.image && (
+                <img src={selectedRecipe.image} alt={selectedRecipe.name} />
+              )}
 
-          {filteredMeals.map((meal, index) => (
-            <MenuItem
-              key={meal._id || `${meal.name}-${index}`}
-              onClick={() => {
-                setSelectedRecipe(meal);
-                setAnchorEl(null);
-              }}
+              <h2>{selectedRecipe.name}</h2>
+
+              {selectedRecipe.category && (
+                <p>
+                  <strong>Category:</strong> {selectedRecipe.category}
+                </p>
+              )}
+
+              <h3>Ingredients</h3>
+
+              <ul>
+                {selectedRecipe.ingredients?.map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))}
+              </ul>
+
+              <h3>Instructions</h3>
+              <p>{selectedRecipe.instructions}</p>
+
+              <Button
+                className="planner-primary-button"
+                variant="contained"
+                onClick={() => handleMealSelect(selectedRecipe)}
+              >
+                Add to Planner
+              </Button>
+            </div>
+          )}
+
+          <div className="planner-grid">
+            {days.map((day) => (
+              <div className="day-row" key={day}>
+                <h2 className="day-heading">{day}</h2>
+
+                <div className="day-card">
+                  {mealTypes.map(({ key, label }) => {
+                    const slotKey = `${day}-${key}`;
+
+                    return (
+                      <div className="meal-slot" key={key}>
+                        <Button
+                          className="meal-select-button"
+                          variant="outlined"
+                          aria-label={`${label} for ${day}`}
+                          onClick={(event) => openMealMenu(event, day, key)}
+                        >
+                          <span className="meal-select-label">
+                            {meals[slotKey] || `Select ${label}`}
+                          </span>
+
+                          <span
+                            className="meal-select-arrow"
+                            aria-hidden="true"
+                          >
+                            ▾
+                          </span>
+                        </Button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="planner-actions">
+            <Button
+              className="planner-primary-button"
+              variant="contained"
+              onClick={handleGenerateShoppingList}
             >
-              {meal.name}
-            </MenuItem>
-          ))}
-        </Menu>
-      </div>
-    </section>
+              Create Shopping List
+            </Button>
+
+            <Button
+              className="planner-secondary-button"
+              variant="outlined"
+              onClick={handleClearAllMeals}
+            >
+              Clear All Meals
+            </Button>
+          </div>
+
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={closeMealMenu}
+            slotProps={{
+              paper: {
+                className: "planner-meal-menu",
+              },
+            }}
+          >
+            <div className="planner-search">
+              <TextField
+                placeholder="Search meals..."
+                size="small"
+                fullWidth
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
+              />
+            </div>
+
+            <MenuItem onClick={handleClearMeal}>Clear meal</MenuItem>
+
+            {filteredMeals.map((meal, index) => (
+              <MenuItem
+                key={meal._id || `${meal.name}-${index}`}
+                onClick={() => {
+                  setSelectedRecipe(meal);
+                  setAnchorEl(null);
+                }}
+              >
+                {meal.name}
+              </MenuItem>
+            ))}
+          </Menu>
+        </div>
+      </section>
+
+      <footer className="home-page home-footer">
+        <div className="home-footer-brand">
+          <span className="home-footer-mark">M|N</span>
+          <span>Meal-Navi</span>
+        </div>
+
+        <p>Thoughtful design. Seamless planning. Better mealtimes.</p>
+
+        <div className="home-footer-links">
+          <Link to="/#about">About</Link>
+          <Link to="/planner">Planner</Link>
+          <Link to="/shopping-list">Shopping list</Link>
+          <a href="mailto:m.j.swales@hotmail.com">Contact</a>
+        </div>
+
+        <div className="home-footer-bottom">
+          <span>© Meal-Navi 2026</span>
+
+          <a
+            href="https://github.com/mjsdev7/Meal-Navi"
+            target="_blank"
+            rel="noreferrer"
+          >
+            View the project on GitHub ↗
+          </a>
+        </div>
+      </footer>
+    </>
   );
 }
 

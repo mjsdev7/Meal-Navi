@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./ShoppingList.css";
+import "./Home.css";
 
 const categories = [
   {
@@ -205,8 +207,8 @@ const categories = [
 const getCategory = (itemName) => {
   const name = itemName.toLowerCase().trim();
 
-  // Check specific categories first, so frozen peas aren't put in produce.
   const frozen = categories.find((category) => category.name === "Frozen");
+
   if (frozen.matches.some((word) => name.includes(word))) {
     return frozen.name;
   }
@@ -367,102 +369,134 @@ function ShoppingList() {
   const completedCount = items.filter((item) => item.checked).length;
 
   return (
-    <section className="shopping-list-page">
-      <div className="shopping-list-container">
-        <p className="shopping-eyebrow">MN · EVERYDAY ESSENTIALS</p>
+    <>
+      <section className="shopping-list-page">
+        <div className="shopping-list-container">
+          <p className="shopping-eyebrow">MN · EVERYDAY ESSENTIALS</p>
 
-        <h1>Shopping List</h1>
+          <h1>Shopping List</h1>
 
-        <p className="shopping-intro">
-          Everything you need for your planned meals.
-        </p>
-
-        <form className="shopping-controls" onSubmit={addItem}>
-          <input
-            type="text"
-            placeholder="Add an item..."
-            value={newItem}
-            onChange={(event) => setNewItem(event.target.value)}
-            aria-label="New shopping-list item"
-          />
-          <button type="submit">Add</button>
-        </form>
-
-        <div className="shopping-summary">
-          <span>
-            {items.length} {items.length === 1 ? "item" : "items"}
-          </span>
-          <span>{completedCount} completed</span>
-        </div>
-
-        <div className="shopping-actions">
-          <button
-            className="clear-button"
-            onClick={clearCompleted}
-            type="button"
-            disabled={completedCount === 0}
-          >
-            Clear completed
-          </button>
-
-          <button
-            className="clear-button"
-            onClick={deleteAll}
-            type="button"
-            disabled={items.length === 0}
-          >
-            Delete all
-          </button>
-        </div>
-
-        {loading ? (
-          <p className="empty-message">Loading your shopping list...</p>
-        ) : items.length === 0 ? (
-          <p className="empty-message">
-            Your shopping list is empty. Add an item to get started!
+          <p className="shopping-intro">
+            Everything you need for your planned meals.
           </p>
-        ) : (
-          <div className="shopping-groups">
-            {groupedItems.map((group) => (
-              <section className="shopping-category" key={group.name}>
-                <h2>{group.name}</h2>
 
-                <ul className="shopping-items">
-                  {group.items.map((item) => (
-                    <li
-                      key={item.originalIndex}
-                      className={`shopping-item ${
-                        item.checked ? "checked" : ""
-                      }`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={Boolean(item.checked)}
-                        onChange={() => toggleItem(item.originalIndex)}
-                        aria-label={`Mark ${item.name} as ${
-                          item.checked ? "not completed" : "completed"
-                        }`}
-                      />
+          <form className="shopping-controls" onSubmit={addItem}>
+            <input
+              type="text"
+              placeholder="Add an item..."
+              value={newItem}
+              onChange={(event) => setNewItem(event.target.value)}
+              aria-label="New shopping-list item"
+            />
 
-                      <span>{item.name}</span>
+            <button type="submit">Add</button>
+          </form>
 
-                      <button
-                        className="delete-button"
-                        onClick={() => deleteItem(item.originalIndex)}
-                        type="button"
-                        aria-label={`Delete ${item.name}`}
-                      >
-                        Delete
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ))}
+          <div className="shopping-summary">
+            <span>
+              {items.length} {items.length === 1 ? "item" : "items"}
+            </span>
+
+            <span>{completedCount} completed</span>
           </div>
-        )}
-      </div>
-    </section>
+
+          <div className="shopping-actions">
+            <button
+              className="clear-button"
+              onClick={clearCompleted}
+              type="button"
+              disabled={completedCount === 0}
+            >
+              Clear completed
+            </button>
+
+            <button
+              className="clear-button"
+              onClick={deleteAll}
+              type="button"
+              disabled={items.length === 0}
+            >
+              Delete all
+            </button>
+          </div>
+
+          {loading ? (
+            <p className="empty-message">Loading your shopping list...</p>
+          ) : items.length === 0 ? (
+            <p className="empty-message">
+              Your shopping list is empty. Add an item to get started!
+            </p>
+          ) : (
+            <div className="shopping-groups">
+              {groupedItems.map((group) => (
+                <section className="shopping-category" key={group.name}>
+                  <h2>{group.name}</h2>
+
+                  <ul className="shopping-items">
+                    {group.items.map((item) => (
+                      <li
+                        key={item.originalIndex}
+                        className={`shopping-item ${
+                          item.checked ? "checked" : ""
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={Boolean(item.checked)}
+                          onChange={() => toggleItem(item.originalIndex)}
+                          aria-label={`Mark ${item.name} as ${
+                            item.checked ? "not completed" : "completed"
+                          }`}
+                        />
+
+                        <span>{item.name}</span>
+
+                        <button
+                          className="delete-button"
+                          onClick={() => deleteItem(item.originalIndex)}
+                          type="button"
+                          aria-label={`Delete ${item.name}`}
+                        >
+                          Delete
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      <footer className="home-page home-footer">
+        <div className="home-footer-brand">
+          <span className="home-footer-mark">M|N</span>
+          <span>Meal-Navi</span>
+        </div>
+
+        <p>Thoughtful design. Seamless planning. Better mealtimes.</p>
+
+        <div className="home-footer-links">
+          <Link to="/#about">About</Link>
+          <Link to="/planner">Planner</Link>
+          <Link to="/shopping-list">Shopping list</Link>
+          <a href="mailto:m.j.swales@hotmail.com">Contact</a>
+        </div>
+
+        <div className="home-footer-bottom">
+          <span>© Meal-Navi 2026</span>
+
+          <a
+            href="https://github.com/mjsdev7/Meal-Navi"
+            target="_blank"
+            rel="noreferrer"
+          >
+            View the project on GitHub ↗
+          </a>
+        </div>
+      </footer>
+    </>
   );
 }
 
