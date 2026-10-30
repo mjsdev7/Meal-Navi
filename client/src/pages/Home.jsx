@@ -84,10 +84,6 @@ function Home() {
             >
               Get started <span aria-hidden="true">↗</span>
             </Link>
-
-            <Link to="/how-it-works" className="home-text-link">
-              Discover how it works <span aria-hidden="true">→</span>
-            </Link>
           </div>
 
           <p className="home-hero-note">PLAN THOUGHTFULLY. COOK HAPPILY.</p>
