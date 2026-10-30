@@ -1,4 +1,3 @@
-
 @import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@1,300&family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap");
 
 .home-page {
@@ -41,6 +40,8 @@
   line-height: 1.7;
 }
 
+/* HERO */
+
 .home-hero {
   display: grid;
   grid-template-columns: 0.92fr 1.08fr;
@@ -70,9 +71,26 @@
 }
 
 /* HERO TITLE ANIMATION */
+
 .home-title-animation {
-  animation: titleReveal 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: titleSlideIn 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
+@keyframes titleSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+/* HERO SUBTITLE */
 
 .home-hero-subtitle {
   max-width: 450px;
@@ -85,23 +103,10 @@
 }
 
 /* HERO SUBTITLE ANIMATION */
+
 .home-subtitle-animation {
   opacity: 0;
   animation: subtitleReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
-}
-
-@keyframes titleReveal {
-  from {
-    opacity: 0;
-    transform: translateY(35px);
-    filter: blur(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
 }
 
 @keyframes subtitleReveal {
@@ -195,6 +200,8 @@
   letter-spacing: 0.12em;
 }
 
+/* INTRO */
+
 .home-intro {
   max-width: 800px;
   margin: 0 auto;
@@ -234,6 +241,8 @@
   font-size: 14px;
   line-height: 2;
 }
+
+/* FEATURES */
 
 .home-features {
   padding: 0 7.5%;
@@ -305,6 +314,8 @@
   font-weight: 600;
 }
 
+/* FINAL CALL TO ACTION */
+
 .home-final-cta {
   position: relative;
   display: flex;
@@ -368,6 +379,8 @@
 .home-button-light:hover {
   background: #e5c9a2;
 }
+
+/* FOOTER */
 
 .home-footer {
   padding: 42px 7.5% 22px;
@@ -434,6 +447,8 @@
   text-decoration: none;
 }
 
+/* TABLET */
+
 @media (max-width: 900px) {
   .home-hero {
     grid-template-columns: 1fr 1fr;
@@ -467,6 +482,8 @@
     padding-left: 0;
   }
 }
+
+/* MOBILE */
 
 @media (max-width: 600px) {
   .home-hero {
@@ -568,6 +585,8 @@
     gap: 17px;
   }
 }
+
+/* REDUCED MOTION ACCESSIBILITY */
 
 @media (prefers-reduced-motion: reduce) {
   .home-title-animation,
