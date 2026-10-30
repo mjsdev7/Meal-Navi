@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 
@@ -19,6 +20,7 @@ const features = [
     link: "/planner",
     linkText: "Explore your planner",
     reverse: false,
+    revealDirection: "right",
   },
   {
     number: "02",
@@ -28,6 +30,7 @@ const features = [
     image: favouriteRecipes,
     alt: "A delicious home-cooked recipe",
     reverse: true,
+    revealDirection: "left",
   },
   {
     number: "03",
@@ -39,6 +42,7 @@ const features = [
     link: "/shopping-list",
     linkText: "View your shopping list",
     reverse: false,
+    revealDirection: "right",
   },
   {
     number: "04",
@@ -48,6 +52,7 @@ const features = [
     image: featureFour,
     alt: "A beautifully served meal ready to enjoy",
     reverse: true,
+    revealDirection: "left",
   },
 ];
 
@@ -55,6 +60,68 @@ const features = [
 const getStartedPath = () => {
   return localStorage.getItem("token") ? "/planner" : "/register";
 };
+
+// Individual feature component with its own scroll observer.
+function FeatureArticle({ feature }) {
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.2,
+      },
+    );
+
+    const currentSection = sectionRef.current;
+
+    if (currentSection) {
+      observer.observe(currentSection);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <article
+      ref={sectionRef}
+      className={`home-feature ${
+        feature.reverse ? "home-feature-reverse" : ""
+      }`}
+    >
+      <div className="home-feature-image-wrap">
+        <img src={feature.image} alt={feature.alt} />
+        <span className="home-feature-number">{feature.number}</span>
+      </div>
+
+      <div
+        className={`home-feature-copy reveal-${feature.revealDirection} ${
+          isVisible ? "is-visible" : ""
+        }`}
+      >
+        <p className="eyebrow">MADE FOR EVERYDAY LIFE</p>
+
+        <h2>{feature.title}</h2>
+
+        <p className="home-feature-description">{feature.description}</p>
+
+        {feature.linkText && (
+          <Link to={feature.link} className="home-feature-link">
+            {feature.linkText} <span aria-hidden="true">→</span>
+          </Link>
+        )}
+      </div>
+    </article>
+  );
+}
 
 function Home() {
   return (
@@ -121,31 +188,7 @@ function Home() {
 
       <section className="home-features" aria-label="Meal-Navi features">
         {features.map((feature) => (
-          <article
-            className={`home-feature ${
-              feature.reverse ? "home-feature-reverse" : ""
-            }`}
-            key={feature.number}
-          >
-            <div className="home-feature-image-wrap">
-              <img src={feature.image} alt={feature.alt} />
-              <span className="home-feature-number">{feature.number}</span>
-            </div>
-
-            <div className="home-feature-copy">
-              <p className="eyebrow">MADE FOR EVERYDAY LIFE</p>
-
-              <h2>{feature.title}</h2>
-
-              <p className="home-feature-description">{feature.description}</p>
-
-              {feature.linkText && (
-                <Link to={feature.link} className="home-feature-link">
-                  {feature.linkText} <span aria-hidden="true">→</span>
-                </Link>
-              )}
-            </div>
-          </article>
+          <FeatureArticle feature={feature} key={feature.number} />
         ))}
       </section>
 
