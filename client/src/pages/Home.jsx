@@ -149,7 +149,7 @@ function Home() {
               to={getStartedPath()}
               className="home-button home-button-dark"
             >
-              Get started <span aria-hidden="true">↗</span>
+              Get started <span aria-hidden="true">↗︎</span>
             </Link>
           </div>
 
@@ -215,7 +215,7 @@ function Home() {
           </p>
 
           <Link to={getStartedPath()} className="home-button home-button-light">
-            Start your journey <span aria-hidden="true">↗</span>
+            Start your journey <span aria-hidden="true">↗︎</span>
           </Link>
         </div>
       </section>
@@ -243,7 +243,7 @@ function Home() {
             target="_blank"
             rel="noreferrer"
           >
-            View the project on GitHub ↗
+            View the project on GitHub ↗︎
           </a>
         </div>
       </footer>
