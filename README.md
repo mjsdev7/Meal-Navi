@@ -87,15 +87,15 @@ Users can generate a shopping list from planned meals and manage the list by add
 
 ### Homepage
 
-![Meal Navi Homepage](screenshots/meal-navi-home-new.png)
+![Meal Navi Homepage](https://github.com/mjsdev7/Meal-Navi/raw/main/screenshots/meal-navi-home-new.png)
 
 ### Weekly Meal Planner
 
-![Meal Navi Planner](screenshots/meal-navi-planner-new.png)
+![Meal Navi Planner](https://github.com/mjsdev7/Meal-Navi/raw/main/screenshots/meal-navi-planner-new.png)
 
 ### Shopping List
 
-![Meal Navi Shopping List](screenshots/meal-navi-shopping-list-new.png)
+![Meal Navi Shopping List](https://github.com/mjsdev7/Meal-Navi/raw/main/screenshots/meal-navi-shopping-list-new.png)
 
 ---
 
