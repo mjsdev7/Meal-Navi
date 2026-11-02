@@ -7,6 +7,7 @@ Meal Navi is a full-stack meal planning application designed to help users disco
 Built as a portfolio project to demonstrate practical full-stack web development skills across React, Node.js, Express, MongoDB, authentication, API integration, and deployment.
 
 **Live Demo:** https://meal-navi.vercel.app/
+
 **GitHub:** https://github.com/mjsdev7/Meal-Navi
 
 ---
@@ -158,7 +159,9 @@ Possible future improvements include:
 Meal Navi is deployed as a separate frontend and backend application.
 
 **Frontend:** Vercel
+
 **Backend:** Render
+
 **Database:** MongoDB Atlas
 
 Environment variables are used to configure API URLs and sensitive application settings for development and production environments.
